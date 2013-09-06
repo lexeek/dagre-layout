@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/lib/diagramming/jquery.jsPlumb-1.5.2.js"></script>
+    <script type="text/javascript" src="js/lib/diagramming/dagre.js"></script>
+    <script type="text/javascript" src="./js/dagre-layout.js"></script>
+    <link rel="stylesheet" href="./css/style.css"/>
+</head>
+
+
+<body>
+
+<div id="jsPlumb-container" style="width: 100%; height: 700px">
+    <div id="node0" class="node" style="background: red;">0</div>
+    <div id="node1" class="node" style="background: green;">1</div>
+    <div id="node2" class="node" style="background: yellow;">2</div>
+    <div id="node3" class="node" style="background: black;">3</div>
+
+    <div id="nested-nodes" class="nested">
+        <div class="header" style="height:20px;background-color:blue;">header</div>
+        <div id="node4" class="node" style="background: black;">4</div>
+        <div id="node5" class="node" style="background: black;">5</div>
+    </div>
+
+    <!--<div id="node6" class="node" style="background: black;">6</div>-->
+</div>
+
+
+</body>
+</html>
