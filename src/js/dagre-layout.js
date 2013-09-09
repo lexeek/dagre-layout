@@ -295,8 +295,8 @@ function initDagrePlumb(jspInstance, config) {
 //
 //        }
 //        $("#" + obj.id).css({"left": obj.dagre.x});
+//        $("#" + obj.id).css({"left": obj.dagre.x });
         $("#" + obj.id).css({"left": obj.dagre.x });
-//        $("#" + obj.id).css({"right": obj.dagre.x - obj.dagre.ur});
         $("#" + obj.id).css({"bottom": obj.dagre.y});
 //        $("#" + obj.id).css({"top": 'inherit'});
 
