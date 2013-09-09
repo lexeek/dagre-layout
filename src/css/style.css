@@ -38,20 +38,20 @@
 
 
 
-.nested{
+.node-nested{
     position: absolute;
-    width: 300px; height: 300px;
+    /*width: 300px; height: 300px;*/
     border:1px solid black;
 }
 
-/*._jsPlumb_drag_select * {*/
-    /*-webkit-touch-callout: none;*/
-    /*-webkit-user-select: none;*/
-    /*-khtml-user-select: none;*/
-    /*-moz-user-select: none;*/
-    /*-ms-user-select: none;*/
-    /*user-select: none;*/
-/*}*/
+._jsPlumb_drag_select * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 
 .ep{

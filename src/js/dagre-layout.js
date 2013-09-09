@@ -78,221 +78,189 @@
 //http://www.graphviz.org/pdf/dot.1.pdf
 //https://github.com/cpettitt/dagre/issues/42
 
+var jspInstance = null;
 
 $(document).ready(function () {
 
     var _initialised = false;
-
     var content = $("#jsPlumb-content");
-    for (var i = 0; i < 10; i++) {
 
-        var nodeElem = $("<div id='jsplumb-node-' style='width: 90px; height: 40px;' class='node'>Node " + i + " <div class='ep'>ep</div></div>");
+    $(window).resize(function () {
+        if (jspInstance !== null) {
+            jspInstance.repaintEverything();
+            console.log("resize");
+        }
+    });
+    jsPlumbInit();
 
-        (function () {
-            nodeElem.attr("id", nodeElem.attr('id') + i);
-//            console.log("nodeElem", nodeElem.attr("id"));
+    function jsPlumbInit() {
 
-        })(i, nodeElem)
-        content.append(nodeElem);
-    }
-
-
-    jsPlumb.bind('ready', function () {
-
-
-//        var jspInstance = jsPlumb.getInstance({
-//            DragOptions : { cursor: 'pointer', zIndex:2000 },
-//            HoverPaintStyle : {strokeStyle:"#1e8151", lineWidth:5 },
-//            PaintStyle: {
-//                lineWidth: 5,
-//                strokeStyle: "#143C28",
-////                outlineColor: "red",
-//                outlineWidth: 1
-//            },
-//            ConnectionOverlays : [
-//                [ "Arrow", {
-//                    location:1,
-//                    id:"arrow",
-//                    length:14,
-//                    foldback:0.8
-//                } ],
-//                [ "Label", { label:"example", id:"label", cssClass:"aLabel" }]
-//            ],
-////            Connector: [ "Bezier", { curviness: 30 } ],
-////        Connector:[ "Straight", { lineWidth:5, strokeStyle:'black' } ],
-////            Endpoint: [ "Dot", { radius: 10 } ],
-////            Endpoint : "Rectangle",
-//            Endpoint : ["Dot", {radius:5}]
-////            ,
-////            EndpointStyle : { width:20, height:16, strokeStyle:'#666' },
-////            EndpointStyle: { fillStyle: "#567567"  },
-////            Anchor: [ 0.5, 0.5, 1, 1 ],
-////        Anchors : [ "TopCenter", "BottomCenter" ]
-////            Anchors : ["TopCenter", "TopCenter"]
-//        });
-
-
-
-        var jspInstance = jsPlumb.importDefaults({
-            Endpoint : ["Dot", {radius:2}],
-            HoverPaintStyle : {strokeStyle:"#1e8151", lineWidth:2 },
-            ConnectionOverlays : [
+        jspInstance = jsPlumb.importDefaults({
+            Endpoint: ["Dot", {radius: 2}],
+            HoverPaintStyle: {strokeStyle: "#1e8151", lineWidth: 2 },
+            ConnectionOverlays: [
                 [ "Arrow", {
-                    location:1,
-                    id:"arrow",
-                    length:14,
-                    foldback:0.8
+                    location: 1,
+                    id: "arrow",
+                    length: 14,
+                    foldback: 0.8
                 } ],
-                [ "Label", { label:"FOO", id:"label", cssClass:"aLabel" }]
+                [ "Label", { label: "FOO", id: "label", cssClass: "aLabel" }]
             ]
         });
 
 
-//        jspInstance.Defaults.Container = "jsPlumb-content";
-
-
-
+        jspInstance.Defaults.Container = "jsPlumb-content";
 
 
         jspInstance.makeSource($(".node"), {
-            filter:".ep",				// only supported by jquery
-            anchor:"Continuous",
+            filter: ".ep",				// only supported by jquery
+            anchor: "Continuous",
+//            anchor: [[0.2, 0, 0, -1, 0, 0, "foo"], [1, 0.2, 1, 0, 0, 0, "bar"], [0.8, 1, 0, 1, 0, 0, "baz"], [0, 0.8, -1, 0, 0, 0, "qux"] ],
 //            Connector:[ "Straight", { lineWidth:5, strokeStyle:'black' } ],
-            connector:[ "StateMachine", { curviness:20 } ],
-            connectorStyle:{ strokeStyle:"#5c96bc", lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
-            maxConnections:5,
-            onMaxConnections:function(info, e) {
-                alert("Maximum connections (" + info.maxConnections + ") reached");
+            connector: [ "StateMachine", { curviness: 20 } ],
+            connectorStyle: { strokeStyle: "#5c96bc", lineWidth: 2, outlineColor: "transparent", outlineWidth: 4 },
+            maxConnections: 5,
+            onMaxConnections: function (info, e) {
+                console.log("Maximum connections (" + info.maxConnections + ") reached");
             }
         });
 
-        jspInstance.draggable($(".node"));
 
-        jspInstance.bind("connection", function(info) {
+        jspInstance.bind("connection", function (info) {
             info.connection.getOverlay("label").setLabel(info.connection.id);
         });
 
         jspInstance.makeTarget($(".node"), {
-            dropOptions:{ hoverClass:"dragHover" },
-            anchor:"Continuous"
+            dropOptions: { hoverClass: "dragHover" },
+            anchor: "Continuous"
+//            anchor: [[0.6, 0, 0, -1], [1, 0.6, 1, 0], [0.4, 1, 0, 1], [0, 0.4, -1, 0] ]
         });
 
-        jspInstance.bind("click", function(c) {
+        jspInstance.bind("click", function (c) {
             jspInstance.detach(c);
         });
 
-        // bind to connection/connectionDetached events, and update the list of connections on screen.
-//        jspInstance.bind("connection", function(info, originalEvent) {
-//            updateConnections(info.connection);
-//        });
-//        jspInstance.bind("connectionDetached", function(info, originalEvent) {
-//            updateConnections(info.connection, true);
-//        });
+        jspInstance.draggable($(".node"), {
+            containment: "jsPlumb-content"
+        });
 
-        // configure some drop options for use by all endpoints.
-        var exampleDropOptions = {
-            tolerance:"touch",
-            hoverClass:"dropHover",
-            activeClass:"dragActive"
-        };
+        return jspInstance;
+    };
+//    );
 
-        var exampleColor = "#00f";
-//        var exampleColor = "rgba(229,219,61,0.5)";
+    var nodeCount = 1;
+    var nodeCountNested = 1;
+    var left = 0;
 
-        var endpointSource = {
-            endpoint:"Rectangle",
-//            paintStyle:{ width:25, height:21, fillStyle:exampleColor },
-            reattach:true,
-//            connectorStyle : {
-//                gradient:{stops:[[0, exampleColor], [0.5, "#09098e"], [1, exampleColor]]},
-//                lineWidth:5,
-//                strokeStyle:exampleColor,
-//                dashstyle:"2 2"
-//            },
-//            beforeDrop:function(params) {
-//                return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
-//            },
-            isSource: false,
-            isTarget: true,
-            dropOptions : exampleDropOptions
-        };
-        var endpointTarget = { isSource: true, isTarget: false};
+    function addNode(isNested, elem) {
+        console.log("addNode");
+        var nodeElem = $("<div id='jsplumb-node-' style='width: 90px; height: 40px;' class='node'>Node " + nodeCount + " <div class='ep'>ep</div></div>");
+        nodeElem.attr("id", nodeElem.attr('id') + nodeCount);
+//        left = left + 25;
+//        nodeElem.css('left', left);
 
 
+        if (isNested) {
 
-        // setup some DynamicAnchors for use with the blue endpoints
-        // and a function to set as the maxConnections callback.
-        var anchors = [[1, 0.2, 1, 0], [0.8, 1, 0, 1], [0, 0.8, -1, 0], [0.2, 0, 0, -1] ],
-            maxConnectionsCallback = function(info) {
-                alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
-            };
+//            _initialised = false;
+            var nestedElem = $("<div style='width: 50px; height: 40px;' class='node-nested' id='nested-'" + nodeCountNested + "> Nested " + nodeCountNested + "</div>");
+
+            console.log("elem", elem);
+            if (typeof elem !== "undefined" && $(elem).length > 0) {
+                console.log("e", elem);
+                $(elem).parent().append(nestedElem);
+                console.log("add nested");
+                nodeCountNested++;
+            } else {
+                nodeElem.css('width', 250).css('height', 150);
+                var addChildBtn = $("<button style='float: right'  id='addChild'>Add Child node</button>");
+                nodeElem.append(addChildBtn);
+                console.log("ADD NEST");
+                addChildBtn.click(function (e, el) {
+                    addNode(true, this);
+                    jspInstance.repaintEverything();
+                });
+
+            }
+        }
+
+        if (typeof elem == "undefined") {
+
+            content.append(nodeElem);
+            nodeCount++;
+
+        }
 
 
+        var instance = jsPlumbInit();
+        if (isNested) {
+            instance.draggable(nestedElem, {
+                containment: $(elem).parent()
+            });
+        }
+//        console.log("isNested", isNested);
+    };
 
-//        var e1 = jsPlumb.addEndpoint("#jsplump", { anchor:anchors }, exampleEndpoint);
-//
-//        e1.bind("maxConnections", maxConnectionsCallback);
+    init();
+    function init() {
 
-
-
-//        jspInstance.addEndpoint($(".node"), { anchor:"TopCenter" }, endpointSource);
-//        jspInstance.addEndpoint($(".node"), { anchor:"BottomCenter" }, endpointTarget);
-
-
-
-        if(!_initialised) {
-            $("#clear").click(function() {
+        if (!_initialised) {
+            $("#clear").click(function () {
                 jspInstance.detachEveryConnection();
-//                showConnectionInfo("");
             });
 
-            $("#reload").click(function() {
-                initDagrePlumb(jspInstance);
-                $(document).ready(function () {
-                    jspInstance.repaintEverything();
-                })
+            $("#reload").click(function () {
+                var config = {};
+                config.rankDir = $('#rankDir').val();
+                config.nodeSep = parseInt($('#nodeSep').val());
+                config.edgeSep = parseInt($('#edgeSep').val());
+                config.rankSep = parseInt($('#rankSep').val());
+                config.widthNode = parseInt($('#widthNode').val());
+                config.heightNode = parseInt($('#heightNode').val());
+
+                if ($('.node').length > 0)
+                    initDagrePlumb(jspInstance, config);
+//            jspInstance.repaintEverything();
             })
 
+            $('#addNode').click(function () {
+                addNode(false);
+                jspInstance.repaintEverything();
+            })
+
+            $('#addNested').click(function () {
+                addNode(true);
+                jspInstance.repaintEverything();
+            });
 
             _initialised = true;
         }
-
-    });
-
+    }
 });
 
 
-
-
-
-function initDagrePlumb(jspInstance) {
+function initDagrePlumb(jspInstance, config) {
     var nodes = new Array();
 
-    var nodesDom = $.each($(".node"), function () {
-    });
+    $.each($(".node"),function (name, obj) {
 
-    nodesDom.each(function (name, obj) {
 
-//        console.log("name", name);
-//        console.log("obj", obj);
-        var $el = $(this);
-            cur = nodesDom.not($el);
-
-//        console.log("$el", $el);
-//        console.log("cur",  cur);
-
-//        if(jspInstance.select($el).length == 0 ) {
-//            console.log("return");
-//            return;
-//        }
         var widthNode = parseInt($(obj).css('width').replace('px', ''));
-        obj.width = 180;
-//        obj.width = widthNode;
-        obj.height = 140;
+        var heightNode = parseInt($(obj).css('height').replace('px', ''));
+        var topNode = parseInt($(obj).css('top').replace('px', ''));
 
-//        obj.width = 90;
+
+        obj.width = widthNode;
+        obj.height = heightNode;
+//        obj.width = 350;
 //        obj.height = 180;
+//        obj.top = 'NaN';
+//        obj.width = config.widthNode;
+//        obj.height = config.heightNode;
+//        console.log(config);
         nodes[name] = obj;
+        console.log("nodes[name]: ", nodes[name]);
     });
 
     var edges = new Array();
@@ -306,17 +274,31 @@ function initDagrePlumb(jspInstance) {
         edges[i++] = edge;
     });
 
+//    console.log("config", config);
     dagre.
         layout().
         nodes(nodes).
         edges(edges).
-        rankDir("TB").
+        rankDir(config.rankDir).
+        nodeSep(config.nodeSep).
+        edgeSep(config.edgeSep).
+        rankSep(config.rankSep).
         run();
 
 
     $.each(nodes, function (name, obj) {
-        $("#" + obj.id).css({"left": obj.dagre.x + 150});
+
+        console.log("Node " + obj.dagre.id + ": " + JSON.stringify(obj.dagre));
+//        if (config.rankDir == "LR") {
+//            $("#" + obj.id).css({"right": obj.dagre.x});
+//        } else {
+//
+//        }
+//        $("#" + obj.id).css({"left": obj.dagre.x});
+        $("#" + obj.id).css({"left": obj.dagre.x });
+//        $("#" + obj.id).css({"right": obj.dagre.x - obj.dagre.ur});
         $("#" + obj.id).css({"bottom": obj.dagre.y});
+//        $("#" + obj.id).css({"top": 'inherit'});
 
         jspInstance.repaintEverything();
     });

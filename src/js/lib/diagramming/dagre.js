@@ -470,6 +470,7 @@ module.exports = function() {
   function run () {
 //      console.log("self", self);
     var rankSep = self.rankSep();
+      console.log("run rankSep: ", rankSep);
     try {
       if (!config.nodes.length) {
         return;
@@ -859,6 +860,7 @@ module.exports = function() {
   var timer = util.createTimer();
 
   var self = {};
+
 
   self.nodeSep = util.propertyAccessor(self, config, "nodeSep");
   self.edgeSep = util.propertyAccessor(self, config, "edgeSep");

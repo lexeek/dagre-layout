@@ -19,136 +19,119 @@
 
 
 <body>
-<div style="float: right">
-    <button id="reload">Reload</button>
-    <button id="clear">Clear</button>
-</div>
+<div id="workflow">
+    <div style="float: right">
 
-<div id="jsPlumb-content" style="width: 900px; height: 900px">
-    <!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
-    <!--&lt;!&ndash;<div id="node0" class="jsplumb-node" style="background: red;">0</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;<div id="node1" class="jsplumb-node" style="background: green;">1</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;<div id="node2" class="jsplumb-node" style="background: yellow;">2</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;<div id="node3" class="jsplumb-node" style="background: black;">3</div>&ndash;&gt;-->
+        <div style="float: left">
+            <button id="addNode">Add NODE</button>
+            <button id="addNested">Add Nest</button>
+            <button id="reload">Reload</button>
+            <button id="clear">Clear</button>
+        </div>
+        <div id="config" style="float: right">
+            <div>
+                <input id="widthNode" value="150" title="" type="text"
+                       style="width: 35px;"/>node Width
+            </div>
+            <div>
+                <input id="heightNode" value="120" title="default 40" type="text"
+                       style="width: 35px;"/>node Height
+            </div>
+            <div>
+                <input id="rankDir" value="TB" title="TB -Top to Bottom or LR - Left to Right" type="text"
+                       style="width: 35px;"/>rankDir (TB -Top to Bottom or LR - Left to Right)
+            </div>
+            <div><input id="nodeSep" value="50" title="default 50" type="text" style="width: 35px;"/>nodeSep (sets the separation
+                between adjacent nodes in the same rank)
+            </div>
+            <div><input id="edgeSep" value="10" title="default 10" type="text" style="width: 35px;"/>edgeSep (sets the separation between
+                adjacent edges in the same rank)
+            </div>
+            <div><input id="rankSep" value="30" title="default 30" type="text" style="width: 35px;"/>rankSep (sets the sepration between
+                ranks in the layout)
+            </div>
+        </div>
+    </div>
 
-    <!--<div id="nested-nodes" class="nested">-->
-    <!--<div class="header" style="height:20px;background-color:blue;">header</div>-->
-    <!--&lt;!&ndash;<div id="node4" class="jsplumb-node" style="background: black;">4</div>&ndash;&gt;-->
-    <!--<div id="node5" class="jsplumb-node" style="background: black;">5</div>-->
-    <!--</div>-->
+    <div id="jsPlumb-content" style="width: 900px; height: 900px">
+        <!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
+        <!--&lt;!&ndash;<div id="node0" class="jsplumb-node" style="background: red;">0</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div id="node1" class="jsplumb-node" style="background: green;">1</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div id="node2" class="jsplumb-node" style="background: yellow;">2</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div id="node3" class="jsplumb-node" style="background: black;">3</div>&ndash;&gt;-->
 
-    <!--&lt;!&ndash;<div id="node6" class="jsplumb-node" style="background: black;">6</div>&ndash;&gt;-->
-    <!--</div>-->
+        <!--<div id="nested-nodes" class="nested">-->
+        <!--<div class="header" style="height:20px;background-color:blue;">header</div>-->
+        <!--&lt;!&ndash;<div id="node4" class="jsplumb-node" style="background: black;">4</div>&ndash;&gt;-->
+        <!--<div id="node5" class="jsplumb-node" style="background: black;">5</div>-->
+        <!--</div>-->
 
 
-    <!--<div id="node0" style="width: 290px; height: 40px;" class="node">-->
-        <!--<b>NODE 0</b>-->
-    <!--</div>-->
-
-    <!--<div id="node1" style="width: 290px; height: 40px;" class="node">-->
-        <!--<b>NODE 1</b>-->
-    <!--</div>-->
-    <!--<div id="node2" style="width: 290px; height: 40px;" class="node">-->
-        <!--<b>NODE 2</b>-->
-    <!--</div>-->
-    <!--<div id="node3" style="width: 290px; height: 40px;" class="node">-->
-        <!--<b>NODE 3</b>-->
-    <!--</div>-->
-
+    </div>
 </div>
 <script type="text/javascript">
 
-//    jsPlumb.bind("ready", function () {
-//        jsPlumb.connect({
-//            source: "node0",
-//            target: "node1",
-//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
-//            anchors: ["Continuous", "Continuous"],
-//            endpoint: "Blank",
-//            connector: "Straight"
-//        });
-//
-//        jsPlumb.connect({
-//            source: "node1",
-//            target: "node2",
-//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
-//            anchors: ["Continuous", "Continuous"],
-//            endpoint: "Blank",
-//            connector: "Straight"
-//        });
-//
-//
-//        jsPlumb.connect({
-//            source: "node1",
-//            target: "node3",
-//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
-//            anchors: ["Continuous", "Continuous"],
-//            endpoint: "Blank",
-//            connector: "Straight"
-//        });
-
-
-//        jsPlumb.connect({
-//            source: "node2",
-//            target: "node3",
-//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
-//            anchors: ["Continuous", "Continuous"],
-//            endpoint: "Blank",
-//            connector: "Straight"
-//        });
-//    });
-
+    //    jsPlumb.bind("ready", function () {
+    //        jsPlumb.connect({
+    //            source: "node0",
+    //            target: "node1",
+    //            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
+    //            anchors: ["Continuous", "Continuous"],
+    //            endpoint: "Blank",
+    //            connector: "Straight"
+    //        });
+    //
 
 </script>
 
 
 <!--<script type="text/javascript">-->
-    <!--$(function () {-->
+<!--$(function () {-->
 <!--//        initDagrePlumb();-->
 
-        <!--function initDagrePlumb() {-->
-            <!--var nodes = new Array();-->
-            <!--$.each($(".node"), function (name, obj) {-->
-                <!--obj.width = 350;-->
-                <!--obj.height = 180;-->
-                <!--nodes[name] = obj;-->
-                <!--jsPlumb.draggable(obj);-->
-            <!--});-->
+<!--function initDagrePlumb() {-->
+<!--var nodes = new Array();-->
+<!--$.each($(".node"), function (name, obj) {-->
+<!--obj.width = 350;-->
+<!--obj.height = 180;-->
+<!--nodes[name] = obj;-->
+<!--jsPlumb.draggable(obj);-->
+<!--});-->
 
-            <!--var edges = new Array();-->
-            <!--var i = 0;-->
-
-
-            <!--console.log("select: ", jsPlumb.select());-->
-            <!--console.log("jsPlumb.getConnections(): ", jsPlumb.getConnections());-->
+<!--var edges = new Array();-->
+<!--var i = 0;-->
 
 
-            <!--jsPlumb.select().each(function (connection) {-->
-                <!--var edge = new Object();-->
-                <!--console.log("connection: ", connection);-->
-                <!--edge.source = connection.target;-->
-                <!--console.log("connection.target: ", connection.target);-->
-                <!--edge.target = connection.source;-->
-                <!--edge.label = "";-->
-                <!--edges[i++] = edge;-->
-            <!--});-->
+<!--console.log("select: ", jsPlumb.select());-->
+<!--console.log("jsPlumb.getConnections(): ", jsPlumb.getConnections());-->
 
-            <!--console.log("nodes: ", nodes);-->
-            <!--console.log("edges: ", edges);-->
 
-            <!--dagre.layout()-->
-                    <!--.nodes(nodes)-->
-                    <!--.edges(edges)-->
-                    <!--.run();-->
+<!--jsPlumb.select().each(function (connection) {-->
+<!--var edge = new Object();-->
+<!--console.log("connection: ", connection);-->
+<!--edge.source = connection.target;-->
+<!--console.log("connection.target: ", connection.target);-->
+<!--edge.target = connection.source;-->
+<!--edge.label = "";-->
+<!--edges[i++] = edge;-->
+<!--});-->
 
-            <!--$.each(nodes, function (name, obj) {-->
-                <!--$("#" + obj.id).css({"left": obj.dagre.x + 150});-->
-                <!--$("#" + obj.id).css({"top": obj.dagre.y});-->
-            <!--});-->
+<!--console.log("nodes: ", nodes);-->
+<!--console.log("edges: ", edges);-->
 
-            <!--jsPlumb.repaintEverything();-->
-        <!--}-->
-    <!--});-->
+<!--dagre.layout()-->
+<!--.nodes(nodes)-->
+<!--.edges(edges)-->
+<!--.run();-->
+
+<!--$.each(nodes, function (name, obj) {-->
+<!--$("#" + obj.id).css({"left": obj.dagre.x + 150});-->
+<!--$("#" + obj.id).css({"top": obj.dagre.y});-->
+<!--});-->
+
+<!--jsPlumb.repaintEverything();-->
+<!--}-->
+<!--});-->
 
 
 <!--</script>-->
