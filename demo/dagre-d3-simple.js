@@ -173,6 +173,8 @@ function renderDagreObjsToD3(graphData, svgSelector) {
     .edges(edgeData)
     .run();
 
+ console.log("nodeData", nodeData);
+
   edges.each(function (d) {
     var points = d.dagre.points;
     if (!points.length) {

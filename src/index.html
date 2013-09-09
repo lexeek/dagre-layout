@@ -7,105 +7,151 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/lib/diagramming/jquery.jsPlumb-1.5.2.js"></script>
 
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!--<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
     <!--<script type="text/javascript" src="../dist/dagre.min.js"></script>-->
     <script type="text/javascript" src="js/lib/diagramming/dagre.js"></script>
     <script type="text/javascript" src="./js/dagre-layout.js"></script>
 
-    <script src="../demo/dagre-d3-simple.js"></script>
+    <!--<script src="../demo/dagre-d3-simple.js"></script>-->
     <link rel="stylesheet" href="./css/style.css"/>
     <link rel="stylesheet" type="text/css" href="../demo/dagre-d3-simple.css">
 </head>
 
 
 <body>
+<div style="float: right">
+    <button id="reload">Reload</button>
+    <button id="clear">Clear</button>
+</div>
 
-
-//https://github.com/cpettitt/dagre/issues/42
-
-<!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
+<div id="jsPlumb-content" style="width: 900px; height: 900px">
+    <!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
     <!--&lt;!&ndash;<div id="node0" class="jsplumb-node" style="background: red;">0</div>&ndash;&gt;-->
     <!--&lt;!&ndash;<div id="node1" class="jsplumb-node" style="background: green;">1</div>&ndash;&gt;-->
     <!--&lt;!&ndash;<div id="node2" class="jsplumb-node" style="background: yellow;">2</div>&ndash;&gt;-->
     <!--&lt;!&ndash;<div id="node3" class="jsplumb-node" style="background: black;">3</div>&ndash;&gt;-->
 
     <!--<div id="nested-nodes" class="nested">-->
-        <!--<div class="header" style="height:20px;background-color:blue;">header</div>-->
-        <!--&lt;!&ndash;<div id="node4" class="jsplumb-node" style="background: black;">4</div>&ndash;&gt;-->
-        <!--<div id="node5" class="jsplumb-node" style="background: black;">5</div>-->
+    <!--<div class="header" style="height:20px;background-color:blue;">header</div>-->
+    <!--&lt;!&ndash;<div id="node4" class="jsplumb-node" style="background: black;">4</div>&ndash;&gt;-->
+    <!--<div id="node5" class="jsplumb-node" style="background: black;">5</div>-->
     <!--</div>-->
 
     <!--&lt;!&ndash;<div id="node6" class="jsplumb-node" style="background: black;">6</div>&ndash;&gt;-->
-<!--</div>-->
+    <!--</div>-->
 
 
-        <div id="node1" style="width: 290px; height: 40px;" class="window">
-            <b>NODE </b>
-        </div>
+    <!--<div id="node0" style="width: 290px; height: 40px;" class="node">-->
+        <!--<b>NODE 0</b>-->
+    <!--</div>-->
 
-<div id="node1" style="width: 290px; height: 40px;" class="window">
-    <b>NODE </b>
+    <!--<div id="node1" style="width: 290px; height: 40px;" class="node">-->
+        <!--<b>NODE 1</b>-->
+    <!--</div>-->
+    <!--<div id="node2" style="width: 290px; height: 40px;" class="node">-->
+        <!--<b>NODE 2</b>-->
+    <!--</div>-->
+    <!--<div id="node3" style="width: 290px; height: 40px;" class="node">-->
+        <!--<b>NODE 3</b>-->
+    <!--</div>-->
+
 </div>
-<div id="node1" style="width: 290px; height: 40px;" class="window">
-    <b>NODE </b>
-</div>
-<div id="node1" style="width: 290px; height: 40px;" class="window">
-    <b>NODE </b>
-</div>
-
-        <script type="text/javascript">
-            jsPlumb.connect({
-                source: $("##{edge.source.id}"),
-                target: $("##{edge.target.id}"),
-                paintStyle:{lineWidth:1, strokeStyle: '#555', dashstyle: "16 0"},
-                anchors:["Continuous", "Continuous"],
-                endpoint:"Blank",
-                connector: "Straight"
-            });
-        </script>
-
-
-
-
-
 <script type="text/javascript">
-    $(function() {
-        initDagrePlumb();
-        function initDagrePlumb() {
-            var nodes = new Array();
-            $.each($(".window"), function(name, obj) {
-                obj.width = 350;
-                obj.height = 180;
-                nodes[name] = obj;
-                jsPlumb.draggable(obj);
-            });
 
-            var edges = new Array();
-            var i = 0;
-            jsPlumb.select().each(function(connection) {
-                var edge = new Object();
-                edge.source = connection.target[0];
-                edge.target = connection.source[0];
-                edge.label = "";
-                edges[i++] = edge;
-            });
+//    jsPlumb.bind("ready", function () {
+//        jsPlumb.connect({
+//            source: "node0",
+//            target: "node1",
+//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
+//            anchors: ["Continuous", "Continuous"],
+//            endpoint: "Blank",
+//            connector: "Straight"
+//        });
+//
+//        jsPlumb.connect({
+//            source: "node1",
+//            target: "node2",
+//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
+//            anchors: ["Continuous", "Continuous"],
+//            endpoint: "Blank",
+//            connector: "Straight"
+//        });
+//
+//
+//        jsPlumb.connect({
+//            source: "node1",
+//            target: "node3",
+//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
+//            anchors: ["Continuous", "Continuous"],
+//            endpoint: "Blank",
+//            connector: "Straight"
+//        });
 
-            dagre.layout()
-                    .nodes(nodes)
-                    .edges(edges)
-                    .run();
 
-            $.each(nodes, function(name, obj) {
-                $("#"+obj.id).css({"left": obj.dagre.x + 150});
-                $("#"+obj.id).css({"top": obj.dagre.y});
-            });
-
-            jsPlumb.repaintEverything();
-        }
-    });
+//        jsPlumb.connect({
+//            source: "node2",
+//            target: "node3",
+//            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
+//            anchors: ["Continuous", "Continuous"],
+//            endpoint: "Blank",
+//            connector: "Straight"
+//        });
+//    });
 
 
 </script>
+
+
+<!--<script type="text/javascript">-->
+    <!--$(function () {-->
+<!--//        initDagrePlumb();-->
+
+        <!--function initDagrePlumb() {-->
+            <!--var nodes = new Array();-->
+            <!--$.each($(".node"), function (name, obj) {-->
+                <!--obj.width = 350;-->
+                <!--obj.height = 180;-->
+                <!--nodes[name] = obj;-->
+                <!--jsPlumb.draggable(obj);-->
+            <!--});-->
+
+            <!--var edges = new Array();-->
+            <!--var i = 0;-->
+
+
+            <!--console.log("select: ", jsPlumb.select());-->
+            <!--console.log("jsPlumb.getConnections(): ", jsPlumb.getConnections());-->
+
+
+            <!--jsPlumb.select().each(function (connection) {-->
+                <!--var edge = new Object();-->
+                <!--console.log("connection: ", connection);-->
+                <!--edge.source = connection.target;-->
+                <!--console.log("connection.target: ", connection.target);-->
+                <!--edge.target = connection.source;-->
+                <!--edge.label = "";-->
+                <!--edges[i++] = edge;-->
+            <!--});-->
+
+            <!--console.log("nodes: ", nodes);-->
+            <!--console.log("edges: ", edges);-->
+
+            <!--dagre.layout()-->
+                    <!--.nodes(nodes)-->
+                    <!--.edges(edges)-->
+                    <!--.run();-->
+
+            <!--$.each(nodes, function (name, obj) {-->
+                <!--$("#" + obj.id).css({"left": obj.dagre.x + 150});-->
+                <!--$("#" + obj.id).css({"top": obj.dagre.y});-->
+            <!--});-->
+
+            <!--jsPlumb.repaintEverything();-->
+        <!--}-->
+    <!--});-->
+
+
+<!--</script>-->
 
 
 </body>

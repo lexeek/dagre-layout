@@ -22,6 +22,7 @@ THE SOFTWARE.
 */
 global.dagre = require("./index");
 
+//console.log("dagre", dagre);
 },{"./index":2}],2:[function(require,module,exports){
 /*
 Copyright (c) 2012-2013 Chris Pettitt
@@ -66,7 +67,6 @@ module.exports = function(g) {
       });
     }
   }
-
   g.eachNode(function(u) {
     var component = [];
     dfs(u, component);
@@ -371,6 +371,9 @@ module.exports = function() {
       order = require("./order")(),
       position = require("./position")();
 
+//    console.log("position: ", position);
+//      position = require("./position")();
+
   // This layout object
   var self = {};
 
@@ -465,6 +468,7 @@ module.exports = function() {
   }
 
   function run () {
+//      console.log("self", self);
     var rankSep = self.rankSep();
     try {
       if (!config.nodes.length) {
@@ -473,6 +477,8 @@ module.exports = function() {
 
       // Build internal graph
       var g = buildAdjacencyGraph();
+        console.log("g: ", g);
+
 
       // Make space for edge labels
       g.eachEdge(function(e, s, t, a) {
@@ -494,6 +500,7 @@ module.exports = function() {
       normalize(g);
 
       // Order the nodes so that edge crossings are minimized.
+//        console.log("order.run(g);", order.run(g));
       order.run(g);
 
       // Find the x and y coordinates for every node in the graph.
@@ -845,6 +852,7 @@ module.exports = function() {
     universalSep: null,
     rankSep: 30,
     rankDir: "TB",
+//    rankDir: "TB",
     debugLevel: 0
   };
 

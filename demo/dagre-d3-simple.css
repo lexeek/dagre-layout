@@ -4,9 +4,9 @@ text {
   font-size: 14px;
 }
 
-rect {
-  fill: #fff;
-}
+/*rect {*/
+  /*fill: #fff;*/
+/*}*/
 
 .node > rect {
   stroke-width: 3px;

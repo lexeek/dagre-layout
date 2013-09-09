@@ -9,7 +9,7 @@ module.exports = function() {
   var config = {
     nodeSep: 50,
     edgeSep: 10,
-    universalSep: null,
+    universalSep: 100,
     rankSep: 30,
     rankDir: "TB",
     debugLevel: 0
