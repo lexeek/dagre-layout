@@ -10,7 +10,7 @@
     /*position:absolute;*/
 /*}*/
 
-.node, .jsplumb-node{
+.node, .jsplumb-node, stop-node{
     /*width: 5em;*/
     width: 90px;
     height: 40px;
@@ -38,6 +38,9 @@
 
 
 
+
+
+
 .node-nested{
     position: absolute;
     /*width: 300px; height: 300px;*/
@@ -54,7 +57,7 @@
 }
 
 
-.ep{
+.ep, .ep-node-nested{
     position: absolute;
     bottom: 37%;
     right: 5px;

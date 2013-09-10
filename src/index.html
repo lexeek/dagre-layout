@@ -14,7 +14,7 @@
 
     <!--<script src="../demo/dagre-d3-simple.js"></script>-->
     <link rel="stylesheet" href="./css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="../demo/dagre-d3-simple.css">
+    <!--<link rel="stylesheet" type="text/css" href="../demo/dagre-d3-simple.css">-->
 </head>
 
 
@@ -30,25 +30,26 @@
         </div>
         <div id="config" style="float: right">
             <div>
-                <input id="widthNode" value="150" title="" type="text"
-                       style="width: 35px;"/>node Width
+                <input id="widthNode" value="" title="" type="text" style="width: 35px;"/>node Width
             </div>
             <div>
-                <input id="heightNode" value="120" title="default 40" type="text"
-                       style="width: 35px;"/>node Height
+                <input id="heightNode" value="" title="" type="text" style="width: 35px;"/>node Height
             </div>
             <div>
                 <input id="rankDir" value="TB" title="TB -Top to Bottom or LR - Left to Right" type="text"
                        style="width: 35px;"/>rankDir (TB -Top to Bottom or LR - Left to Right)
             </div>
-            <div><input id="nodeSep" value="50" title="default 50" type="text" style="width: 35px;"/>nodeSep (sets the separation
+            <div><input id="nodeSep" value="150" title="default 50" type="text" style="width: 35px;"/>nodeSep (sets the separation
                 between adjacent nodes in the same rank)
             </div>
-            <div><input id="edgeSep" value="10" title="default 10" type="text" style="width: 35px;"/>edgeSep (sets the separation between
+            <div><input id="edgeSep" value="110" title="default 10" type="text" style="width: 35px;"/>edgeSep (sets the separation between
                 adjacent edges in the same rank)
             </div>
-            <div><input id="rankSep" value="30" title="default 30" type="text" style="width: 35px;"/>rankSep (sets the sepration between
+            <div><input id="rankSep" value="130" title="default 30" type="text" style="width: 35px;"/>rankSep (sets the sepration between
                 ranks in the layout)
+            </div>
+            <div>
+                <input id="isManual" type="checkbox"/>set TOP manual, by dragging (for TESTING purposes)
             </div>
         </div>
     </div>

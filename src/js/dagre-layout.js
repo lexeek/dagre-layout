@@ -96,7 +96,7 @@ $(document).ready(function () {
     function jsPlumbInit() {
 
         jspInstance = jsPlumb.importDefaults({
-            Endpoint: ["Dot", {radius: 2}],
+            Endpoint: ["Dot", {radius: 4}],
             HoverPaintStyle: {strokeStyle: "#1e8151", lineWidth: 2 },
             ConnectionOverlays: [
                 [ "Arrow", {
@@ -154,31 +154,48 @@ $(document).ready(function () {
     var left = 0;
 
     function addNode(isNested, elem) {
-        console.log("addNode");
         var nodeElem = $("<div id='jsplumb-node-' style='width: 90px; height: 40px;' class='node'>Node " + nodeCount + " <div class='ep'>ep</div></div>");
         nodeElem.attr("id", nodeElem.attr('id') + nodeCount);
-//        left = left + 25;
-//        nodeElem.css('left', left);
-
+        left = left + 25;
+        nodeElem.css('left', left);
 
         if (isNested) {
 
-//            _initialised = false;
-            var nestedElem = $("<div style='width: 50px; height: 40px;' class='node-nested' id='nested-'" + nodeCountNested + "> Nested " + nodeCountNested + "</div>");
+            var nestedElem = $("<div style='width: 50px; height: 40px; background-color: darkkhaki; top: 45px' class='node-nested' id='nested-" + nodeCountNested + "'> Nested " + nodeCountNested + "<div class='ep-node-nested'>ep</div></div>");
 
-            console.log("elem", elem);
             if (typeof elem !== "undefined" && $(elem).length > 0) {
                 console.log("e", elem);
                 $(elem).parent().append(nestedElem);
-                console.log("add nested");
+//                console.log("add nested");
                 nodeCountNested++;
             } else {
                 nodeElem.css('width', 250).css('height', 150);
-                var addChildBtn = $("<button style='float: right'  id='addChild'>Add Child node</button>");
+                nodeElem.addClass('nest');
+                var addChildBtn = $("<button style='float: right;'  id='addChild'>Add Child node</button>");
+                var minimizeBtn = $("<button style='float: left; bottom: 0'  id='minimizeBtn'>minimize</button>");
                 nodeElem.append(addChildBtn);
-                console.log("ADD NEST");
+                nodeElem.append(minimizeBtn);
+//                console.log("ADD NEST");
                 addChildBtn.click(function (e, el) {
                     addNode(true, this);
+                    jspInstance.repaintEverything();
+                });
+                var min = false;
+                minimizeBtn.click(function (e, el) {
+                    console.log("min", min);
+                    if (!min) {
+                        $(this).parent().css('width', 90);
+                        $(this).parent().css('height', 40);
+                        $(this).parent().children(':not(#minimizeBtn)');
+                        console.log("$(this).parent().children(':not(#minimizeBtn)')", $(this).parent().children(':not(#minimizeBtn)'));
+                        $(this).parent().children(':not(#minimizeBtn, .ep)').hide();
+                        min = true;
+                    } else {
+                        $(this).parent().css('width', 250);
+                        $(this).parent().css('height', 150);
+                        $(this).parent().children(':not(#minimizeBtn, .ep)').show();
+                        min = false;
+                    }
                     jspInstance.repaintEverything();
                 });
 
@@ -186,20 +203,52 @@ $(document).ready(function () {
         }
 
         if (typeof elem == "undefined") {
-
             content.append(nodeElem);
             nodeCount++;
-
         }
 
-
-        var instance = jsPlumbInit();
+//        var instance = jsPlumbInit();
+        var instance = jsPlumb.importDefaults({
+            ConnectionOverlays: [
+                [ "Arrow", {
+                    location: 1,
+                    id: "arrow",
+                    length: 14,
+                    foldback: 0.8
+                } ],
+                [ "Label", { label: "FOO", id: "label", cssClass: "aLabel" }]
+            ]
+        });
         if (isNested) {
+
+
+//            instance.makeSource($(".node-nested"), {
+//                filter: ".ep-node-nested",
+//                scope: "nest",
+//                anchor: "Continuous",
+//                DragOptions : { cursor: 'pointer', zIndex:2000 },
+//                connector: [ "StateMachine", { curviness: 20 } ],
+//                connectorStyle: { strokeStyle: "#5c96bc", lineWidth: 2, outlineColor: "transparent", outlineWidth: 4},
+//                maxConnections: 5,
+//                onMaxConnections: function (info, e) {
+//                    console.log("Maximum connections (" + info.maxConnections + ") reached");
+//                }
+//            });
+//
+//            instance.makeTarget($(".node-nested"), {
+//                filter: ":not(.nest)",
+//                DragOptions : { cursor: 'pointer', zIndex:2000 },
+//                dropOptions: { hoverClass: "dragHover" },
+//                anchor: "Continuous",
+//                scope: "nest"
+//            });
+
             instance.draggable(nestedElem, {
                 containment: $(elem).parent()
             });
         }
-//        console.log("isNested", isNested);
+
+        jsPlumbInit();
     };
 
     init();
@@ -218,10 +267,10 @@ $(document).ready(function () {
                 config.rankSep = parseInt($('#rankSep').val());
                 config.widthNode = parseInt($('#widthNode').val());
                 config.heightNode = parseInt($('#heightNode').val());
+                config.isTopManual = $('input#isManual').prop('checked');
 
                 if ($('.node').length > 0)
                     initDagrePlumb(jspInstance, config);
-//            jspInstance.repaintEverything();
             })
 
             $('#addNode').click(function () {
@@ -243,16 +292,39 @@ $(document).ready(function () {
 function initDagrePlumb(jspInstance, config) {
     var nodes = new Array();
 
-    $.each($(".node"),function (name, obj) {
+    $.each($(".node"), function (name, obj) {
 
+        console.log("obj: ", obj);
 
+        console.log("config.isTopManual", config.isTopManual);
+        if (!config.isTopManual) {
+            $(obj).css({"top": 'inherit'});
+        }
         var widthNode = parseInt($(obj).css('width').replace('px', ''));
         var heightNode = parseInt($(obj).css('height').replace('px', ''));
         var topNode = parseInt($(obj).css('top').replace('px', ''));
 
+//        if($(obj).hasClass('nest')) {
+//            console.log('nest:' , obj);
+//            obj.width = widthNode;
+//            obj.height = heightNode;
+//        }else{
 
-        obj.width = widthNode;
-        obj.height = heightNode;
+        if (typeof config.widthNode !== "undefined" && config.widthNode >= 1) {
+            console.log("width", config.widthNode);
+            obj.width = config.widthNode;
+        } else {
+            obj.width = widthNode;
+        }
+
+        if (typeof config.heightNode !== "undefined" && config.heightNode >= 1) {
+            obj.height = config.heightNode;
+        } else {
+            obj.height = heightNode;
+        }
+//        }
+
+
 //        obj.width = 350;
 //        obj.height = 180;
 //        obj.top = 'NaN';
@@ -289,18 +361,20 @@ function initDagrePlumb(jspInstance, config) {
     $.each(nodes, function (name, obj) {
 
         console.log("Node " + obj.dagre.id + ": " + JSON.stringify(obj.dagre));
-//        if (config.rankDir == "LR") {
-//            $("#" + obj.id).css({"right": obj.dagre.x});
-//        } else {
-//
-//        }
-//        $("#" + obj.id).css({"left": obj.dagre.x});
-//        $("#" + obj.id).css({"left": obj.dagre.x });
+        console.log("obj: ", obj);
+
+//        if ($(obj).hasClass('nest')) {
+//            $("#" + obj.id).css({"left": obj.dagre.x  - obj.dagre.width/2 });
+//            $("#" + obj.id).css({"bottom": obj.dagre.y - obj.dagre.height/2});
+//        }else{
         $("#" + obj.id).css({"left": obj.dagre.x });
         $("#" + obj.id).css({"bottom": obj.dagre.y});
+//        }
+
 //        $("#" + obj.id).css({"top": 'inherit'});
 
-        jspInstance.repaintEverything();
+
+        jspInstance.repaint($(obj));
     });
 
     jspInstance.repaintEverything();
