@@ -23,7 +23,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 DEALINGS IN THE SOFTWARE.
 */
 
-(function() {
+//(function() {
 	function setWorkerSTDIN(txt) {
 		postArgMessage(dotWorker, "setWorkerSTDIN", txt); }
 	function setupGVContext(opt) {
@@ -41,6 +41,7 @@ DEALINGS IN THE SOFTWARE.
 		slow: false,
 		prog: false
 	};
+
 
 	window.w_launch = function() {
 		progressView = new JSViz.ProgressView();
@@ -88,7 +89,7 @@ DEALINGS IN THE SOFTWARE.
 			$('#' + nodePosition[i].name).css({'left' : (nodePosition[i].x - minPosition) * 80, 'top' : (nodePosition[i].y - minPosition) * 80});
 		}
 		
-		jsPlumb.repaintEverything();
+		window.jspInstance.repaintEverything();
 		
         // Use this only when using fdp/sfdp/neato/twopi/circo layout engines/algorithms.
         // Hides progress canvas after initialization is over.
@@ -152,4 +153,4 @@ DEALINGS IN THE SOFTWARE.
 			}
 		});
 	}
-})();
+//})();

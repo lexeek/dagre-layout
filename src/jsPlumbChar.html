@@ -1,152 +1,210 @@
 ﻿<!DOCTYPE html>
 <HTML>
 <HEAD>
-<TITLE>jsPlumb & Liviz.js: Character Relation Diagram</TITLE>
-<META content="text/html;charset=utf-8" http-equiv="content-type">
-<LINK rel="stylesheet" href="jsPlumbChar.css">
-<LINK rel="stylesheet" href="jquery/themes/smoothness/jquery-ui-1.10.3.custom.min.css">
+    <TITLE>jsPlumb & Liviz.js: Character Relation Diagram</TITLE>
+    <META content="text/html;charset=utf-8" http-equiv="content-type">
+    <LINK rel="stylesheet" href="jsPlumbChar.css">
+    <LINK rel="stylesheet" href="jquery/themes/smoothness/jquery-ui-1.10.3.custom.min.css">
 
-<style>
-.component {
-	opacity: 0.8;
-	filter: alpha(opacity=80);
-	background-color: white;
-	color: black;
-	font-family: helvetica;
-	padding: 0.5em;
-}
+    <style>
+        .component {
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            background-color: white;
+            color: black;
+            font-family: helvetica;
+            padding: 0.5em;
+        }
 
-.window {
-	border:2px solid #346789;
- 	/*width:14em;
- 	height:20em;*/
-	z-index:20;
-	position:absolute;
-	font-size:0.8em;
-	border-radius:1em;
-	/*margin:1em;*/
-}
+        .window {
+            border: 2px solid #346789;
+            /*width:14em;
+            height:20em;*/
+            z-index: 20;
+            position: absolute;
+            font-size: 0.8em;
+            border-radius: 1em;
+            /*margin:1em;*/
+        }
 
-.label {
-	border: 1px solid #346789;
-	padding: 8px;
-	padding: 8px;
-}
+            /*.label {*/
+            /*border: 1px solid #346789;*/
+            /*padding: 8px;*/
+            /*padding: 8px;*/
+            /*}*/
 
-.label_protagonist {
-	border: 1px solid #CC4444;
-	padding: 8px;
-	padding: 8px;
-}
+            /*.label_protagonist {*/
+            /*border: 1px solid #CC4444;*/
+            /*padding: 8px;*/
+            /*padding: 8px;*/
+            /*}*/
 
-.label_main {
-	border: 1px solid #4444CC;
-	padding: 8px;
-	padding: 8px;
-}
+            /*.label_main {*/
+            /*border: 1px solid #4444CC;*/
+            /*padding: 8px;*/
+            /*padding: 8px;*/
+            /*}*/
 
-.label_other {
-	border: 1px solid #44CC44;
-	padding: 8px;
-	padding: 8px;
-}
+            /*.label_other {*/
+            /*border: 1px solid #44CC44;*/
+            /*padding: 8px;*/
+            /*padding: 8px;*/
+            /*}*/
 
-.label_protagonist:hover {
-	border-color: #CC8888;
-}
+            /*.label_protagonist:hover {*/
+            /*border-color: #CC8888;*/
+            /*}*/
 
-.label_main:hover {
-	border-color: #8888CC;
-}
+            /*.label_main:hover {*/
+            /*border-color: #8888CC;*/
+            /*}*/
 
-.label_other:hover {
-	border-color: #88CC88;
-}
+            /*.label_other:hover {*/
+            /*border-color: #88CC88;*/
+            /*}*/
 
-.label:hover {
-	border-color: #5d94a6;
-}
+            /*.label:hover {*/
+            /*border-color: #5d94a6;*/
+            /*}*/
 
-.l1 {
-	font-size: 13px;
-}
+            /*.l1 {*/
+            /*font-size: 13px;*/
+            /*}*/
 
-.close_box {
-    background: gray;
-    color: black;
-    font-weight: bold;
-    padding: 2px 5px;
-    display: inline;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .close_box {
+            background: gray;
+            color: black;
+            font-weight: bold;
+            padding: 2px 5px;
+            display: inline;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-#window30 { top:32em; left:2em; border-color: #4444CC; text-align: center;}
-#window32 { top:2em; left:2em; border-color: #CC4444; text-align: center;}
-#window28 { top:32em; left:32em; border-color: #4444CC; text-align: center;}
-#window29 { top:32em; left:62em; border-color: #4444CC; text-align: center;}
-#window14 { top:64em; left:2em; border-color: #44CC44; text-align: center;}
-#window31 { top:64em; left:32em; border-color: #44CC44; text-align: center;}
+        #window30 {
+            top: 32em;
+            left: 2em;
+            border-color: #4444CC;
+            text-align: center;
+        }
 
-/* jQuery UI Dialogs */
-.ui-dialog {
-    overflow: hidden;
-}
+        #window32 {
+            top: 2em;
+            left: 2em;
+            border-color: #CC4444;
+            text-align: center;
+        }
 
-.ui-dialog .ui-dialog-title {
-    white-space: normal;
-}
+        #window28 {
+            top: 32em;
+            left: 32em;
+            border-color: #4444CC;
+            text-align: center;
+        }
 
-.ui-dialog .ui-dialog-titlebar-close {
-    width: 20px;
-    outline: none;
-}
+        #window29 {
+            top: 32em;
+            left: 62em;
+            border-color: #4444CC;
+            text-align: center;
+        }
 
-._jsPlumb_connector { z-index:4; }
-._jsPlumb_endpoint { z-index:5; }
-._jsPlumb_overlay { z-index:6; }
-.hl { border:3px solid red; }
+        #window14 {
+            top: 64em;
+            left: 2em;
+            border-color: #44CC44;
+            text-align: center;
+        }
 
-</style>
+        #window31 {
+            top: 64em;
+            left: 32em;
+            border-color: #44CC44;
+            text-align: center;
+        }
 
-<script type="text/javascript">
-    // Google Analytics
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-37360375-1']);
-    _gaq.push(['_trackPageview']);
+            /* jQuery UI Dialogs */
+        .ui-dialog {
+            overflow: hidden;
+        }
 
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
+        .ui-dialog .ui-dialog-title {
+            white-space: normal;
+        }
+
+        .ui-dialog .ui-dialog-titlebar-close {
+            width: 20px;
+            outline: none;
+        }
+
+        ._jsPlumb_connector {
+            z-index: 4;
+        }
+
+        ._jsPlumb_endpoint {
+            z-index: 5;
+        }
+
+        ._jsPlumb_overlay {
+            z-index: 6;
+        }
+
+        .hl {
+            border: 3px solid red;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        // Google Analytics
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37360375-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 
 </HEAD>
 <BODY onload="w_launch();">
 
 <DIV style="position: absolute;">
-	<DIV id="char">
-        <DIV id='window30' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>アウロラ</STRONG><BR>Aurora<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
-<DIV id='window32' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>尊藤 由紀</STRONG><BR>Takatou Yuki<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
-<DIV id='window28' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>しろ</STRONG><BR>Shiro<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
-<DIV id='window29' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>橘 姫花</STRONG><BR>Tachibana Himeka<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
-<DIV id='window14' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>星月 そら</STRONG><BR>Hoshizuki Sora<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
-<DIV id='window31' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>吾妻 愛鈴</STRONG><BR>Azuma Airi<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
-	</DIV>
+    <DIV id="char">
+        <DIV id='window30' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>アウロラ</STRONG><BR>Aurora<BR><img
+                style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
+        <DIV id='window32' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>尊藤 由紀</STRONG><BR>Takatou
+            Yuki<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
+        <DIV id='window28' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>しろ</STRONG><BR>Shiro<BR><img
+                style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
+        <DIV id='window29' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>橘 姫花</STRONG><BR>Tachibana
+            Himeka<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
+        <DIV id='window14' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>星月 そら</STRONG><BR>Hoshizuki
+            Sora<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
+        <DIV id='window31' class='component window'><STRONG style='font-family: meiryo, sans-serif;'>吾妻 愛鈴</STRONG><BR>Azuma
+            Airi<BR><img style='margin-top: 5px; width: 105px; height: 150px;' src='images/no-image.jpg'></DIV>
+    </DIV>
 </DIV>
 
 <DIV id="explanation">
     <div class="close_box">X</div>
-	<P>Characters' dialogs/boxes are draggable.</P>
-	<P>Relation boxes containing ellipses "..." at their end, can be clicked on to read the rest of the relation information.</P>
+    <P>Characters' dialogs/boxes are draggable.</P>
+
+    <P>Relation boxes containing ellipses "..." at their end, can be clicked on to read the rest of the relation
+        information.</P>
+
     <P>Two online examples can be found here:<br>
-	&nbsp;<a href="http://lndb.info/light_novel/diagram/Akikan!">Akikan!</a><br>
-	&nbsp;<a href="http://lndb.info/light_novel/diagram/Strawberry_Panic!">Strawberry Panic!</a>
-	</P>
+        &nbsp;<a href="http://lndb.info/light_novel/diagram/Akikan!">Akikan!</a><br>
+        &nbsp;<a href="http://lndb.info/light_novel/diagram/Strawberry_Panic!">Strawberry Panic!</a>
+    </P>
 </DIV>
 
 <SCRIPT type="text/javascript" src="jquery/jquery-2.0.2.min.js"></SCRIPT>
@@ -156,296 +214,297 @@
 
 <script type="text/javascript">
 /*
-	this is the JS for the main jsPlumb.
-*/
-(function() {
-    $(document).on('click','.close_box',function(){
-        $(this).parent().fadeTo(300,0,function(){
+ this is the JS for the main jsPlumb.
+ */
+(function () {
+    $(document).on('click', '.close_box', function () {
+        $(this).parent().fadeTo(300, 0, function () {
             $(this).remove();
         });
 
     });
 
-    (function cls()
-    {
+    (function cls() {
         $('.close_box').click();
     }());
 
 
-	jsPlumb.List = {
+    jsPlumb.List = {
 
-		init : function() {
-			var bod = document.body;
+        init: function () {
+            var bod = document.body;
 
-			var	menuString = '<div class="menu"><a href="http://www.jsplumb.org">jsPlumb</a> | <a href="http://ushiroad.com/jsviz/">Liviz.js</a>';
-			
-			var m = document.createElement("div");
-			m.className = "menu";
-			m.innerHTML = menuString;
-			bod.appendChild(m);			
-		}
-	};
+            var menuString = '<div class="menu"><a href="http://www.jsplumb.org">jsPlumb</a> | <a href="http://ushiroad.com/jsviz/">Liviz.js</a>';
 
-	window.jsPlumbChar = {
-		
-		init : function() {
-			
-			jsPlumb.importDefaults({
-				DragOptions : { cursor: "pointer", zIndex:2000 },
-				HoverClass: "connector-hover"
-			});
-	
-			var hoverPaintStyle = { strokeStyle: "#7ec3d9" };		// hover paint style is merged on normal style, so you 
-			                                                        // don't necessarily need to specify a lineWidth
+            var m = document.createElement("div");
+            m.className = "menu";
+            m.innerHTML = menuString;
+            bod.appendChild(m);
+        }
+    };
 
-                                                var connection_32_14 = jsPlumb.connect({
-                                        source:"window32",
-                                        target:"window14",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#346789"},
-                                        hoverPaintStyle:{strokeStyle:"#5d94a6"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        endpointsOnTop:true,
-                                        overlays:[ ["Label", {
-                                            cssClass: "l1 component label",
-                                            label: "Childhood-friend, Classmate",
-                                            location: 0.5,
-                                            events: {
-                                                "click":function(label, evt) {
-                                                    $("#32_14_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                    return false;
-                                                }
-                                            }
-                                        }],
-                                            ["Arrow", {
-                                                location:1
-                                            }],
-                                            ["Arrow", {
-                                                location:0,
-                                                direction:-1
-                                            }]
-                                        ]});
-                                                var stateMachineConnectorProtagonist_32_28 = {
-                                        connector:"StateMachine",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#CC4444"},
-                                        hoverPaintStyle:{strokeStyle:"#CC8888"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        overlays:[
-                                            ["Label", {
-                                                cssClass: "l1 component label_protagonist",
-                                                label: "???",
-                                                location: 0.7,
-                                                events: {
-                                                    "click":function(label, evt) {
-                                                        $("#32_28_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                        return false;
-                                                    }
-                                                }
-                                            }],
-                                            ["PlainArrow", {
-                                                location:1,
-                                                width:20,
-                                                length:12
-                                            }]
-                                        ]
-                                    };
+    window.jsPlumbChar = {
 
-                                    jsPlumb.connect({
-                                        source:"window32",
-                                        target:"window28"
-                                    }, stateMachineConnectorProtagonist_32_28);
-                                                var stateMachineConnectorProtagonist_32_29 = {
-                                        connector:"StateMachine",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#CC4444"},
-                                        hoverPaintStyle:{strokeStyle:"#CC8888"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        overlays:[
-                                            ["Label", {
-                                                cssClass: "l1 component label_protagonist",
-                                                label: "???",
-                                                location: 0.7,
-                                                events: {
-                                                    "click":function(label, evt) {
-                                                        $("#32_29_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                        return false;
-                                                    }
-                                                }
-                                            }],
-                                            ["PlainArrow", {
-                                                location:1,
-                                                width:20,
-                                                length:12
-                                            }]
-                                        ]
-                                    };
+        init: function () {
 
-                                    jsPlumb.connect({
-                                        source:"window32",
-                                        target:"window29"
-                                    }, stateMachineConnectorProtagonist_32_29);
-                                                var stateMachineConnectorProtagonist_32_30 = {
-                                        connector:"StateMachine",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#CC4444"},
-                                        hoverPaintStyle:{strokeStyle:"#CC8888"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        overlays:[
-                                            ["Label", {
-                                                cssClass: "l1 component label_protagonist",
-                                                label: "???",
-                                                location: 0.7,
-                                                events: {
-                                                    "click":function(label, evt) {
-                                                        $("#32_30_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                        return false;
-                                                    }
-                                                }
-                                            }],
-                                            ["PlainArrow", {
-                                                location:1,
-                                                width:20,
-                                                length:12
-                                            }]
-                                        ]
-                                    };
+            jsPlumb.importDefaults({
+                DragOptions: { cursor: "pointer", zIndex: 2000 },
+                HoverClass: "connector-hover"
+            });
 
-                                    jsPlumb.connect({
-                                        source:"window32",
-                                        target:"window30"
-                                    }, stateMachineConnectorProtagonist_32_30);
-                                                var connection_32_31 = jsPlumb.connect({
-                                        source:"window32",
-                                        target:"window31",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#346789"},
-                                        hoverPaintStyle:{strokeStyle:"#5d94a6"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        endpointsOnTop:true,
-                                        overlays:[ ["Label", {
-                                            cssClass: "l1 component label",
-                                            label: "Friends, Classmates, and so...",
-                                            location: 0.5,
-                                            events: {
-                                                "click":function(label, evt) {
-                                                    $("#32_31_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                    return false;
-                                                }
-                                            }
-                                        }],
-                                            ["Arrow", {
-                                                location:1
-                                            }],
-                                            ["Arrow", {
-                                                location:0,
-                                                direction:-1
-                                            }]
-                                        ]});
-                                                var stateMachineConnectorMain_30_32 = {
-                                        connector:"StateMachine",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#4444CC"},
-                                        hoverPaintStyle:{strokeStyle:"#8888CC"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        overlays:[
-                                            ["Label", {
-                                                cssClass: "l1 component label_main",
-                                                label: "in love",
-                                                location: 0.7,
-                                                events: {
-                                                    "click":function(label, evt) {
-                                                        $("#30_32_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                        return false;
-                                                    }
-                                                }
-                                            }],
-                                            ["PlainArrow", {
-                                                location:1,
-                                                width:20,
-                                                length:12
-                                            }]
-                                        ]
-                                    };
+            var hoverPaintStyle = { strokeStyle: "#7ec3d9" };		// hover paint style is merged on normal style, so you
+            // don't necessarily need to specify a lineWidth
 
-                                    jsPlumb.connect({
-                                        source:"window30",
-                                        target:"window32"
-                                    }, stateMachineConnectorMain_30_32);
-                                                var stateMachineConnectorMain_28_32 = {
-                                        connector:"StateMachine",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#4444CC"},
-                                        hoverPaintStyle:{strokeStyle:"#8888CC"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        overlays:[
-                                            ["Label", {
-                                                cssClass: "l1 component label_main",
-                                                label: "in love",
-                                                location: 0.7,
-                                                events: {
-                                                    "click":function(label, evt) {
-                                                        $("#28_32_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                        return false;
-                                                    }
-                                                }
-                                            }],
-                                            ["PlainArrow", {
-                                                location:1,
-                                                width:20,
-                                                length:12
-                                            }]
-                                        ]
-                                    };
+            var connection_32_14 = jsPlumb.connect({
+                source: "window32",
+                target: "window14",
+                paintStyle: {lineWidth: 3, strokeStyle: "#346789"},
+                hoverPaintStyle: {strokeStyle: "#5d94a6"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                endpointsOnTop: true,
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label",
+                        label: "Childhood-friend, Classmate",
+                        location: 0.5,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#32_14_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["Arrow", {
+                        location: 1
+                    }],
+                    ["Arrow", {
+                        location: 0,
+                        direction: -1
+                    }]
+                ]});
+            var stateMachineConnectorProtagonist_32_28 = {
+                connector: "StateMachine",
+                paintStyle: {lineWidth: 3, strokeStyle: "#CC4444"},
+                hoverPaintStyle: {strokeStyle: "#CC8888"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label_protagonist",
+                        label: "???",
+                        location: 0.7,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#32_28_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["PlainArrow", {
+                        location: 1,
+                        width: 20,
+                        length: 12
+                    }]
+                ]
+            };
 
-                                    jsPlumb.connect({
-                                        source:"window28",
-                                        target:"window32"
-                                    }, stateMachineConnectorMain_28_32);
-                                                var stateMachineConnectorMain_29_32 = {
-                                        connector:"StateMachine",
-                                        paintStyle:{lineWidth:3,strokeStyle:"#4444CC"},
-                                        hoverPaintStyle:{strokeStyle:"#8888CC"},
-                                        endpoint:"Blank",
-                                        anchor:"Continuous",
-                                        overlays:[
-                                            ["Label", {
-                                                cssClass: "l1 component label_main",
-                                                label: "in love",
-                                                location: 0.7,
-                                                events: {
-                                                    "click":function(label, evt) {
-                                                        $("#29_32_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
-                                                        return false;
-                                                    }
-                                                }
-                                            }],
-                                            ["PlainArrow", {
-                                                location:1,
-                                                width:20,
-                                                length:12
-                                            }]
-                                        ]
-                                    };
+            jsPlumb.connect({
+                source: "window32",
+                target: "window28"
+            }, stateMachineConnectorProtagonist_32_28);
+            var stateMachineConnectorProtagonist_32_29 = {
+                connector: "StateMachine",
+                paintStyle: {lineWidth: 3, strokeStyle: "#CC4444"},
+                hoverPaintStyle: {strokeStyle: "#CC8888"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label_protagonist",
+                        label: "???",
+                        location: 0.7,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#32_29_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["PlainArrow", {
+                        location: 1,
+                        width: 20,
+                        length: 12
+                    }]
+                ]
+            };
 
-                                    jsPlumb.connect({
-                                        source:"window29",
-                                        target:"window32"
-                                    }, stateMachineConnectorMain_29_32);
-            
-			// jsplumb event handlers
-	
-			// context menu (right click) on any component.
-			jsPlumb.bind("contextmenu", function(component, originalEvent) {
+            jsPlumb.connect({
+                source: "window32",
+                target: "window29"
+            }, stateMachineConnectorProtagonist_32_29);
+            var stateMachineConnectorProtagonist_32_30 = {
+                connector: "StateMachine",
+                paintStyle: {lineWidth: 3, strokeStyle: "#CC4444"},
+                hoverPaintStyle: {strokeStyle: "#CC8888"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label_protagonist",
+                        label: "???",
+                        location: 0.7,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#32_30_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["PlainArrow", {
+                        location: 1,
+                        width: 20,
+                        length: 12
+                    }]
+                ]
+            };
+
+            jsPlumb.connect({
+                source: "window32",
+                target: "window30"
+            }, stateMachineConnectorProtagonist_32_30);
+            var connection_32_31 = jsPlumb.connect({
+                source: "window32",
+                target: "window31",
+                paintStyle: {lineWidth: 3, strokeStyle: "#346789"},
+                hoverPaintStyle: {strokeStyle: "#5d94a6"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                endpointsOnTop: true,
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label",
+                        label: "Friends, Classmates, and so...",
+                        location: 0.5,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#32_31_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["Arrow", {
+                        location: 1
+                    }],
+                    ["Arrow", {
+                        location: 0,
+                        direction: -1
+                    }]
+                ]});
+            var stateMachineConnectorMain_30_32 = {
+                connector: "StateMachine",
+                paintStyle: {lineWidth: 3, strokeStyle: "#4444CC"},
+                hoverPaintStyle: {strokeStyle: "#8888CC"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label_main",
+                        label: "in love",
+                        location: 0.7,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#30_32_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["PlainArrow", {
+                        location: 1,
+                        width: 20,
+                        length: 12
+                    }]
+                ]
+            };
+
+            jsPlumb.connect({
+                source: "window30",
+                target: "window32"
+            }, stateMachineConnectorMain_30_32);
+            var stateMachineConnectorMain_28_32 = {
+                connector: "StateMachine",
+                paintStyle: {lineWidth: 3, strokeStyle: "#4444CC"},
+                hoverPaintStyle: {strokeStyle: "#8888CC"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label_main",
+                        label: "in love",
+                        location: 0.7,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#28_32_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["PlainArrow", {
+                        location: 1,
+                        width: 20,
+                        length: 12
+                    }]
+                ]
+            };
+
+            jsPlumb.connect({
+                source: "window28",
+                target: "window32"
+            }, stateMachineConnectorMain_28_32);
+            var stateMachineConnectorMain_29_32 = {
+                connector: "StateMachine",
+                paintStyle: {lineWidth: 3, strokeStyle: "#4444CC"},
+                hoverPaintStyle: {strokeStyle: "#8888CC"},
+                endpoint: "Blank",
+                anchor: "Continuous",
+                overlays: [
+                    ["Label", {
+                        cssClass: "l1 component label_main",
+                        label: "in love",
+                        location: 0.7,
+                        events: {
+                            "click": function (label, evt) {
+                                $("#29_32_dialog").dialog().dialog('option', 'position', [evt.clientX, evt.clientY]);
+                                return false;
+                            }
+                        }
+                    }],
+                    ["PlainArrow", {
+                        location: 1,
+                        width: 20,
+                        length: 12
+                    }]
+                ]
+            };
+
+            jsPlumb.connect({
+                source: "window29",
+                target: "window32"
+            }, stateMachineConnectorMain_29_32);
+
+            // jsplumb event handlers
+
+            // context menu (right click) on any component.
+            jsPlumb.bind("contextmenu", function (component, originalEvent) {
                 originalEvent.preventDefault();
                 return false;
             });
-			
-			// make all .window divs draggable
-			jsPlumb.draggable(jsPlumb.getSelector(".window"));
-            
-		}
-	};	
+
+            // make all .window divs draggable
+            jsPlumb.draggable(jsPlumb.getSelector(".window"));
+
+        }
+    };
 })();
 </SCRIPT>
 
@@ -462,24 +521,27 @@
 <!-- The layout engine/algorithm to be used. Should be either dot, fdp, sfdp, neato, twopi, or circo. -->
 <!-- To change from the dot layout engine to the fdp, sfdp, neato, twopi, or circo layout engine, change the 
 	 following div's content from dot to fdp, sfdp, neato, twopi, or circo.
+
+	 http://graphviz.org/pdf/dotguide.pdf
 -->
 <div id="layout-engine" style="display: none;">dot</div>
 <textarea id="dot-src" style="display: none;">
-digraph chargraph {
-	node[shape=box, margin=0, width=4, height=5];
+    digraph chargraph {
+    node[shape=box, margin=0, width=2, height=2, style=filled];
 
-	window32 -> window14 [dir="both"];
-	window32 -> window28;
-	window32 -> window29;
-	window32 -> window30;
-	window32 -> window31 [dir="both"];
-	window30 -> window32;
-	window28 -> window32;
-	window29 -> window32;
+    window32 -> window14 [dir="both"];
+    window32 -> window28;
+    window32 -> window29;
+    window32 -> window30;
+    window32 -> window31 [dir="both"];
+    window30 -> window32;
+    window28 -> window32;
+    window29 -> window32;
 
-	{rank=same; window32;}
-	{rank=same; window30; window28; window29;}
-}
+    {rank=same; window32;}
+    {rank=same; window30; window28}
+    {rank=same; window29;}
+    }
 </textarea>
 <!-- Enable this textarea for "sfdp" layout engine, and disable the above textarea
 	 Also change the content of the "layout-engine" div from dot to sfdp.

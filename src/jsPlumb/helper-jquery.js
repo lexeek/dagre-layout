@@ -3,13 +3,13 @@
  */
 jsPlumb.bind("ready", function() {
 
-	jsPlumb.List.init();
+//	jsPlumb.List.init();
 
 	// chrome fix.
-	document.onselectstart = function () { return false; };				
+	document.onselectstart = function () { return false; };
 
 	// explanation div is draggable
-	$("#explanation").draggable();
+//	$("#explanation").draggable();
 
-    jsPlumbChar.init();
+//    jsPlumbChar.init();
 });

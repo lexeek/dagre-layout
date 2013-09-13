@@ -15,17 +15,30 @@
     <!--<script src="../demo/dagre-d3-simple.js"></script>-->
     <link rel="stylesheet" href="./css/style.css"/>
     <!--<link rel="stylesheet" type="text/css" href="../demo/dagre-d3-simple.css">-->
+
+    <!-- helper code -->
+    <SCRIPT type="text/javascript" src="jsPlumb/helper-jquery.js"></SCRIPT>
+
+    <!-- Liviz.js code -->
+    <script type="text/javascript" src="Liviz.js/global-util.js?v=2"></script>
+    <script type="text/javascript" src="Liviz.js/workered.js?v=2"></script>
+    <script type="text/javascript" src="Liviz.js/progress-view.js?v=2"></script>
+    <script type="text/javascript" src="Liviz.js/progress-model.js?v=2"></script>
+    <script type="text/javascript" src="Liviz.js/stopgo.js?v=2"></script>
+
 </head>
 
 
 <body>
-<div id="workflow">
+<div id="workflow"  style="width: 100%; height: 900px">
+<!--<div id="workflow" >-->
     <div style="float: right">
 
         <div style="float: left">
             <button id="addNode">Add NODE</button>
             <button id="addNested">Add Nest</button>
-            <button id="reload">Reload</button>
+            <button id="use-dagre">use Dagre</button>
+            <button id="use-liviz">use Liviz</button>
             <button id="clear">Clear</button>
         </div>
         <div id="config" style="float: right">
@@ -53,89 +66,40 @@
             </div>
         </div>
     </div>
+    <div id="layout-engine" style="display: none;">dot</div>
+    <textarea id="dot-src" style="display: none;">
+        digraph chargraph {
+        node[shape=box, margin=0, width=2, height=2, style=filled];
 
-    <div id="jsPlumb-content" style="width: 900px; height: 900px">
+        window32 -> window14 [dir="both"];
+        window32 -> window28;
+        window32 -> window29;
+        window32 -> window30;
+        window32 -> window31 [dir="both"];
+        window30 -> window32;
+        window28 -> window32;
+        window29 -> window32;
+
+        {rank=same; window32;}
+        {rank=same; window30; window28}
+        {rank=same; window29;}
+        }
+    </textarea>
+
+    <!--<div id="jsPlumb-content" style="width: 900px; height: 900px">-->
         <!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
-        <!--&lt;!&ndash;<div id="node0" class="jsplumb-node" style="background: red;">0</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div id="node1" class="jsplumb-node" style="background: green;">1</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div id="node2" class="jsplumb-node" style="background: yellow;">2</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div id="node3" class="jsplumb-node" style="background: black;">3</div>&ndash;&gt;-->
+        <!--<div id="node0" class="jsplumb-node" style="background: red;">0</div>-->
+        <!--<div id="node1" class="jsplumb-node" style="background: green;">1</div>-->
+        <!--<div id="node2" class="jsplumb-node" style="background: yellow;">2</div>-->
+        <!--<div id="node3" class="jsplumb-node" style="background: black;">3</div>-->
 
         <!--<div id="nested-nodes" class="nested">-->
         <!--<div class="header" style="height:20px;background-color:blue;">header</div>-->
-        <!--&lt;!&ndash;<div id="node4" class="jsplumb-node" style="background: black;">4</div>&ndash;&gt;-->
+        <!--<div id="node4" class="jsplumb-node" style="background: black;">4</div>-->
         <!--<div id="node5" class="jsplumb-node" style="background: black;">5</div>-->
         <!--</div>-->
-
-
-    </div>
+    <!--</div>-->
 </div>
-<script type="text/javascript">
-
-    //    jsPlumb.bind("ready", function () {
-    //        jsPlumb.connect({
-    //            source: "node0",
-    //            target: "node1",
-    //            paintStyle: {lineWidth: 1, strokeStyle: '#555', dashstyle: "16 0"},
-    //            anchors: ["Continuous", "Continuous"],
-    //            endpoint: "Blank",
-    //            connector: "Straight"
-    //        });
-    //
-
-</script>
-
-
-<!--<script type="text/javascript">-->
-<!--$(function () {-->
-<!--//        initDagrePlumb();-->
-
-<!--function initDagrePlumb() {-->
-<!--var nodes = new Array();-->
-<!--$.each($(".node"), function (name, obj) {-->
-<!--obj.width = 350;-->
-<!--obj.height = 180;-->
-<!--nodes[name] = obj;-->
-<!--jsPlumb.draggable(obj);-->
-<!--});-->
-
-<!--var edges = new Array();-->
-<!--var i = 0;-->
-
-
-<!--console.log("select: ", jsPlumb.select());-->
-<!--console.log("jsPlumb.getConnections(): ", jsPlumb.getConnections());-->
-
-
-<!--jsPlumb.select().each(function (connection) {-->
-<!--var edge = new Object();-->
-<!--console.log("connection: ", connection);-->
-<!--edge.source = connection.target;-->
-<!--console.log("connection.target: ", connection.target);-->
-<!--edge.target = connection.source;-->
-<!--edge.label = "";-->
-<!--edges[i++] = edge;-->
-<!--});-->
-
-<!--console.log("nodes: ", nodes);-->
-<!--console.log("edges: ", edges);-->
-
-<!--dagre.layout()-->
-<!--.nodes(nodes)-->
-<!--.edges(edges)-->
-<!--.run();-->
-
-<!--$.each(nodes, function (name, obj) {-->
-<!--$("#" + obj.id).css({"left": obj.dagre.x + 150});-->
-<!--$("#" + obj.id).css({"top": obj.dagre.y});-->
-<!--});-->
-
-<!--jsPlumb.repaintEverything();-->
-<!--}-->
-<!--});-->
-
-
-<!--</script>-->
 
 
 </body>

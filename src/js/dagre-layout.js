@@ -78,12 +78,12 @@
 //http://www.graphviz.org/pdf/dot.1.pdf
 //https://github.com/cpettitt/dagre/issues/42
 
-var jspInstance = null;
+window.jspInstance = null;
 
 $(document).ready(function () {
 
     var _initialised = false;
-    var content = $("#jsPlumb-content");
+    var content = $("#workflow");
 
     $(window).resize(function () {
         if (jspInstance !== null) {
@@ -110,7 +110,7 @@ $(document).ready(function () {
         });
 
 
-        jspInstance.Defaults.Container = "jsPlumb-content";
+        jspInstance.Defaults.Container = "workflow";
 
 
         jspInstance.makeSource($(".node"), {
@@ -142,7 +142,8 @@ $(document).ready(function () {
         });
 
         jspInstance.draggable($(".node"), {
-            containment: "jsPlumb-content"
+//            containment: "jsPlumb-content"
+            containment: content
         });
 
         return jspInstance;
@@ -166,7 +167,6 @@ $(document).ready(function () {
             if (typeof elem !== "undefined" && $(elem).length > 0) {
                 console.log("e", elem);
                 $(elem).parent().append(nestedElem);
-//                console.log("add nested");
                 nodeCountNested++;
             } else {
                 nodeElem.css('width', 250).css('height', 150);
@@ -175,7 +175,6 @@ $(document).ready(function () {
                 var minimizeBtn = $("<button style='float: left; bottom: 0'  id='minimizeBtn'>minimize</button>");
                 nodeElem.append(addChildBtn);
                 nodeElem.append(minimizeBtn);
-//                console.log("ADD NEST");
                 addChildBtn.click(function (e, el) {
                     addNode(true, this);
                     jspInstance.repaintEverything();
@@ -207,7 +206,6 @@ $(document).ready(function () {
             nodeCount++;
         }
 
-//        var instance = jsPlumbInit();
         var instance = jsPlumb.importDefaults({
             ConnectionOverlays: [
                 [ "Arrow", {
@@ -259,7 +257,7 @@ $(document).ready(function () {
                 jspInstance.detachEveryConnection();
             });
 
-            $("#reload").click(function () {
+            $("#use-dagre").click(function () {
                 var config = {};
                 config.rankDir = $('#rankDir').val();
                 config.nodeSep = parseInt($('#nodeSep').val());
@@ -268,9 +266,20 @@ $(document).ready(function () {
                 config.widthNode = parseInt($('#widthNode').val());
                 config.heightNode = parseInt($('#heightNode').val());
                 config.isTopManual = $('input#isManual').prop('checked');
+                config.engine = "dagre";
 
                 if ($('.node').length > 0)
-                    initDagrePlumb(jspInstance, config);
+                    doLayout(jspInstance, config);
+            })
+
+            $("#use-liviz").click(function () {
+                var config = {};
+                config.engine = "liviz";
+
+                if ($('.node').length > 0) {
+                    doLayout(jspInstance, config)
+                }
+
             })
 
             $('#addNode').click(function () {
@@ -289,93 +298,83 @@ $(document).ready(function () {
 });
 
 
-function initDagrePlumb(jspInstance, config) {
+function doLayout(jspInstance, config) {
     var nodes = new Array();
 
-    $.each($(".node"), function (name, obj) {
 
-        console.log("obj: ", obj);
+    switch (config.engine) {
 
-        console.log("config.isTopManual", config.isTopManual);
-        if (!config.isTopManual) {
-            $(obj).css({"top": 'inherit'});
-        }
-        var widthNode = parseInt($(obj).css('width').replace('px', ''));
-        var heightNode = parseInt($(obj).css('height').replace('px', ''));
-        var topNode = parseInt($(obj).css('top').replace('px', ''));
+        case "dagre" :
 
-//        if($(obj).hasClass('nest')) {
-//            console.log('nest:' , obj);
-//            obj.width = widthNode;
-//            obj.height = heightNode;
-//        }else{
+            $.each($(".node"), function (name, obj) {
+                if (!config.isTopManual) {
+                    $(obj).css({"top": 'inherit'});
+                }
+                var widthNode = parseInt($(obj).css('width').replace('px', ''));
+                var heightNode = parseInt($(obj).css('height').replace('px', ''));
+                var topNode = parseInt($(obj).css('top').replace('px', ''));
 
-        if (typeof config.widthNode !== "undefined" && config.widthNode >= 1) {
-            console.log("width", config.widthNode);
-            obj.width = config.widthNode;
-        } else {
-            obj.width = widthNode;
-        }
+                if (typeof config.widthNode !== "undefined" && config.widthNode >= 1) {
+                    console.log("width", config.widthNode);
+                    obj.width = config.widthNode;
+                } else {
+                    obj.width = widthNode;
+                }
 
-        if (typeof config.heightNode !== "undefined" && config.heightNode >= 1) {
-            obj.height = config.heightNode;
-        } else {
-            obj.height = heightNode;
-        }
-//        }
+                if (typeof config.heightNode !== "undefined" && config.heightNode >= 1) {
+                    obj.height = config.heightNode;
+                } else {
+                    obj.height = heightNode;
+                }
 
+                nodes[name] = obj;
+//                console.log("nodes[name]: ", nodes[name]);
+            });
 
-//        obj.width = 350;
-//        obj.height = 180;
-//        obj.top = 'NaN';
-//        obj.width = config.widthNode;
-//        obj.height = config.heightNode;
-//        console.log(config);
-        nodes[name] = obj;
-        console.log("nodes[name]: ", nodes[name]);
-    });
+            var edges = new Array();
+            var i = 0;
 
-    var edges = new Array();
-    var i = 0;
+            jspInstance.select().each(function (connection) {
+                var edge = new Object();
+                edge.source = connection.target;
+                edge.target = connection.source;
+                edge.label = "";
+                edges[i++] = edge;
+            });
 
-    jspInstance.select().each(function (connection) {
-        var edge = new Object();
-        edge.source = connection.target;
-        edge.target = connection.source;
-        edge.label = "";
-        edges[i++] = edge;
-    });
+            dagre.
+                layout().
+                nodes(nodes).
+                edges(edges).
+                rankDir(config.rankDir).
+                nodeSep(config.nodeSep).
+                edgeSep(config.edgeSep).
+                rankSep(config.rankSep).
+                run();
 
-//    console.log("config", config);
-    dagre.
-        layout().
-        nodes(nodes).
-        edges(edges).
-        rankDir(config.rankDir).
-        nodeSep(config.nodeSep).
-        edgeSep(config.edgeSep).
-        rankSep(config.rankSep).
-        run();
+            $.each(nodes, function (name, obj) {
+                console.log("Node ID " + obj.dagre.id + ": " + JSON.stringify(obj.dagre));
+                $("#" + obj.id).css({"left": obj.dagre.x });
+                $("#" + obj.id).css({"bottom": obj.dagre.y});
 
+                jspInstance.repaint($(obj));
+            });
+            break;
 
-    $.each(nodes, function (name, obj) {
+        case "liviz" :
 
-        console.log("Node " + obj.dagre.id + ": " + JSON.stringify(obj.dagre));
-        console.log("obj: ", obj);
+            $.each($(".node"), function (name, obj) {
+                console.log("livis engine");
 
-//        if ($(obj).hasClass('nest')) {
-//            $("#" + obj.id).css({"left": obj.dagre.x  - obj.dagre.width/2 });
-//            $("#" + obj.id).css({"bottom": obj.dagre.y - obj.dagre.height/2});
-//        }else{
-        $("#" + obj.id).css({"left": obj.dagre.x });
-        $("#" + obj.id).css({"bottom": obj.dagre.y});
-//        }
-
-//        $("#" + obj.id).css({"top": 'inherit'});
+                jspInstance.select().each(function (connection) {
+                  console.log("connection: ", connection.sourceId);
+                })
+            })
+            startDot();
+                break;
 
 
-        jspInstance.repaint($(obj));
-    });
+    }
 
     jspInstance.repaintEverything();
 }
