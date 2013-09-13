@@ -165,9 +165,11 @@
 
 function postArgMessage(port, msgType, arg) {
 	var msg = {type: msgType};
+    console.log("msg: ",msg);
 	if (arguments.length > 1) {
 		msg.arg0 = arg;
 	}
 
+    console.log("port: ", port);
 	port.postMessage(msg);
 }

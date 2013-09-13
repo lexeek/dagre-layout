@@ -364,8 +364,6 @@ function doLayout(jspInstance, config) {
         case "liviz" :
 
             $.each($(".node"), function (name, obj) {
-                console.log("livis engine");
-
                 jspInstance.select().each(function (connection) {
                   console.log("connection: ", connection.sourceId);
                 })
