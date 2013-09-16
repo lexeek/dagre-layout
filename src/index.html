@@ -69,23 +69,28 @@
     <div id="layout-engine" style="display: none;">dot</div>
     <textarea id="dot-src" style="display: none;">
         digraph chargraph {
-        node[shape=box, margin=0, width=2, height=2, style=filled];
+        node[shape=box, margin=0, width=3, height=3, style=filled];
 
-        window32 -> window14 [dir="both"];
-        window32 -> window28;
-        window32 -> window29;
-        window32 -> window30;
-        window32 -> window31 [dir="both"];
-        window30 -> window32;
-        window28 -> window32;
-        window29 -> window32;
+        "jsplumb-node-1" -> "jsplumb-node-1" [dir="both"];
+        "jsplumb-node-1" -> "jsplumb-node-2" ;
+        "jsplumb-node-2" -> "jsplumb-node-4" ;
+        "jsplumb-node-2" -> "jsplumb-node-5" ;
+        "jsplumb-node-3" -> "jsplumb-node-2" ;
+        "jsplumb-node-3" -> "jsplumb-node-1" ;
 
-        {rank=same; window32;}
-        {rank=same; window30; window28}
-        {rank=same; window29;}
         }
     </textarea>
 
+    <!--window32 -> window29;-->
+    <!--window32 -> window30;-->
+    <!--window32 -> window31 [dir="both"];-->
+    <!--window30 -> window32;-->
+    <!--window28 -> window32;-->
+    <!--window29 -> window32;-->
+
+    <!--{rank=same; window32;}-->
+    <!--{rank=same; window30; window28}-->
+    <!--{rank=same; window29;}-->
     <!--<div id="jsPlumb-content" style="width: 900px; height: 900px">-->
         <!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
         <!--<div id="node0" class="jsplumb-node" style="background: red;">0</div>-->

@@ -89,14 +89,17 @@
 				if (w) {
 					w.onwriteend = null;
 				}
+                console.log("sharedFileURL: " + _this.sharedFileURL);
 				_this.targetWorker.postMessage({type: '_stopgo_run', sharedFileURL: _this.sharedFileURL});
 			}
 		
 			var _this = this;
 			this.setFlag(false);
 			if (w) {
+                console.log(postRunMsg);
 				w.onwriteend = postRunMsg;
 			} else {
+                console.log("postRunMSG ");
 				postRunMsg();
 			}
 		},
@@ -119,10 +122,14 @@
 				onComplete(null);
 				return;
 			}
-			
-			webkitRequestFileSystem(TEMPORARY, 64, 
+
+            console.log("TEMPORARY ");
+            console.log(TEMPORARY);
+			webkitRequestFileSystem(TEMPORARY, 64,
 				function(fs){ // success
 					fs.root.getFile("shared-status.txt", {create: true}, function(fileEntry) {
+                        console.log("fileEntry ");
+                        console.log(fileEntry);
 						fileEntry.createWriter(function(fileWriter) {
 							_this.sharedFileWriter = fileWriter;
 							fileEntry.file(function(f){
@@ -163,13 +170,13 @@
 	parent[className] = StopGo;
 })(this, "WorkerStopGo");
 
+                    //worker.postMessage()
 function postArgMessage(port, msgType, arg) {
-	var msg = {type: msgType};
-    console.log("msg: ",msg);
+
+    var msg = {type: msgType};
 	if (arguments.length > 1) {
 		msg.arg0 = arg;
 	}
 
-    console.log("port: ", port);
 	port.postMessage(msg);
 }

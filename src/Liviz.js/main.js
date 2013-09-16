@@ -19,9 +19,9 @@ if(LAYOUT_ENGINE == "fdp")
 { // import fdp layout engine
     importScripts("./em-fdpgen.min.js?v=3");
 }
-//else if(LAYOUT_ENGINE == "sfdp")
-//{ // import sfdp layout engine
-//    importScripts("./em-sfdpgen.min.js?v=3");
+else if(LAYOUT_ENGINE == "sfdp")
+{ // import sfdp layout engine
+    importScripts("./em-sfdpgen.min.js?v=3");
 //}
 //else if(LAYOUT_ENGINE == "neato")
 //{ // import neato layout engine
@@ -34,7 +34,7 @@ if(LAYOUT_ENGINE == "fdp")
 //else if(LAYOUT_ENGINE == "circo")
 //{ // import circo layout engine
 //    importScripts("./em-circogen.min.js?v=3");
-//}
+}
 else
 { // import dot layout engine
     importScripts("./em-dotgen.min.js?v=3");
@@ -68,7 +68,8 @@ var theStopGo = new WorkerStopGo.Worker(this, function(stopgo){
 function afterInit() {
 	postArgMessage(workerGlobal, "afterInit"); }
 function afterSetupGVContext(param) {
-	postArgMessage(workerGlobal, "afterSetupGVContext", param); }
+	postArgMessage(workerGlobal, "afterSetupGVContext", param);
+ }
 function afterRunDotLayout(param) {
 	postArgMessage(workerGlobal, "afterRunDotLayout", param); }
 function afterErrorCheck(param) {
@@ -87,12 +88,18 @@ addEventListener("message", function(event){
 
 	switch(etype) {
 	case "init":
+        console.log("init WORKER ");
+
 		initDotgenWorker();
 		break;
 	case "setWorkerSTDIN":
+        console.log("setWorkerSTDIN" + arg0.split(/[\r\n]+/));
 		emModule.setStdinArray(arg0.split(/[\r\n]+/));
 		break;
 	case "setupGVContext":
+        console.log("setupGVContext ");
+        console.log(arg0);
+
 		setupGVContext(arg0);
 		break;
 	}
@@ -100,6 +107,7 @@ addEventListener("message", function(event){
 
 function initDotgenWorker() {
 	emModule = window.EmscriptenModule;
+
 	STOP_FUNC_LABEL   = emModule.addFunctionEntry();
 	SENDRK_FUNC_LABEL = emModule.addFunctionEntry();
 
@@ -111,16 +119,20 @@ function setupGVContext(options) {
 	GV.useProgress = options.prog;
 	emModule.forceRewindStdin();
 	GV.gvc = emModule._prepareGVContext();
+//    console.log(GV.gvc);
 	GV.errorSink.clear();
 	var g_ptr = emModule._beginGVJob(GV.gvc, GV.verbose, GV.errorSink.funcLabel);
+//    console.log(g_ptr);
 	GV.errorSink.checkGraph(emModule, g_ptr);
 	afterErrorCheck(GV.errorSink.stringify());
 	GV.pGraph = g_ptr;
+    console.log("GV.errorSink.stringify()  ");
+    console.log(GV.errorSink.stringify());
 	afterSetupGVContext( GV.errorSink.stringify() );
 }
 
 function shouldStopLayout(progress) {
-	sendLog("SS : "+ progress);
+	sendLog("shouldStopLayout : "+ progress);
 
 	if (GV.useProgress) {
 		initRankNodePool();
@@ -146,6 +158,8 @@ function runDotLayout() {
 	{
 		node = extractor.g.nodeMap[i];
 		
+        console.log("node ");
+        console.log(node);
 		if(!!node)
 		{
 			nodeNameMap[node.name] = node;

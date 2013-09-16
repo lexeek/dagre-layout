@@ -9,7 +9,7 @@ jsPlumb.bind("ready", function() {
 	document.onselectstart = function () { return false; };
 
 	// explanation div is draggable
-//	$("#explanation").draggable();
+	$("#explanation").draggable();
 
 //    jsPlumbChar.init();
 });

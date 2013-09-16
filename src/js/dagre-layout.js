@@ -80,6 +80,13 @@
 
 window.jspInstance = null;
 
+var dotWorker = null;
+var progressView = null;
+var stopGo = null;
+var nodePosition = [];
+var minPosition = Number.MAX_VALUE;
+var diJSP = {};
+
 $(document).ready(function () {
 
     var _initialised = false;
@@ -203,6 +210,12 @@ $(document).ready(function () {
 
         if (typeof elem == "undefined") {
             content.append(nodeElem);
+            console.log("new nodeElem ", nodeElem);
+            console.log("new nodeElem ", nodeElem.attr("id"));
+            var node,
+                nodeId = nodeElem.attr("id");
+
+            diJSP[nodeId] =
             nodeCount++;
         }
 
@@ -365,11 +378,15 @@ function doLayout(jspInstance, config) {
 
             $.each($(".node"), function (name, obj) {
                 jspInstance.select().each(function (connection) {
-                  console.log("connection: ", connection.sourceId);
+                    console.log("connection: ", connection.sourceId);
                 })
             })
-            startDot();
-                break;
+
+            w_launch();
+
+
+
+            break;
 
 
     }
