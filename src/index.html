@@ -6,6 +6,9 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/lib/diagramming/jquery.jsPlumb-1.5.2.js"></script>
+    <SCRIPT type="text/javascript" src="jquery/jquery.ui.touch-punch.js"></SCRIPT>
+    <script type="text/javascript" src="js/lib/diagramming/digraph-model.js"></script>
+
 
     <!--<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
     <!--<script type="text/javascript" src="../dist/dagre.min.js"></script>-->
@@ -30,8 +33,8 @@
 
 
 <body>
-<div id="workflow"  style="width: 100%; height: 900px">
-<!--<div id="workflow" >-->
+<div id="workflow" style="width: 100%; height: 900px">
+    <!--<div id="workflow" >-->
     <div style="float: right">
 
         <div style="float: left">
@@ -52,13 +55,16 @@
                 <input id="rankDir" value="TB" title="TB -Top to Bottom or LR - Left to Right" type="text"
                        style="width: 35px;"/>rankDir (TB -Top to Bottom or LR - Left to Right)
             </div>
-            <div><input id="nodeSep" value="150" title="default 50" type="text" style="width: 35px;"/>nodeSep (sets the separation
+            <div><input id="nodeSep" value="150" title="default 50" type="text" style="width: 35px;"/>nodeSep (sets the
+                separation
                 between adjacent nodes in the same rank)
             </div>
-            <div><input id="edgeSep" value="110" title="default 10" type="text" style="width: 35px;"/>edgeSep (sets the separation between
+            <div><input id="edgeSep" value="110" title="default 10" type="text" style="width: 35px;"/>edgeSep (sets the
+                separation between
                 adjacent edges in the same rank)
             </div>
-            <div><input id="rankSep" value="130" title="default 30" type="text" style="width: 35px;"/>rankSep (sets the sepration between
+            <div><input id="rankSep" value="130" title="default 30" type="text" style="width: 35px;"/>rankSep (sets the
+                sepration between
                 ranks in the layout)
             </div>
             <div>
@@ -69,18 +75,32 @@
     <div id="layout-engine" style="display: none;">dot</div>
     <textarea id="dot-src" style="display: none;">
         digraph chargraph {
-        node[shape=box, margin=0, width=3, height=3, style=filled];
-
-        "jsplumb-node-1" -> "jsplumb-node-1" [dir="both"];
-        "jsplumb-node-1" -> "jsplumb-node-2" ;
-        "jsplumb-node-2" -> "jsplumb-node-4" ;
-        "jsplumb-node-2" -> "jsplumb-node-5" ;
-        "jsplumb-node-3" -> "jsplumb-node-2" ;
-        "jsplumb-node-3" -> "jsplumb-node-1" ;
+        node[shape=box, margin=0, width=1, height=1, style=filled];
+        subgraph cluster_0 {
+            "jsplumb-node-1" -> "jsplumb-node-2"  "jsplumb-node-3" -> "jsplumb-node-4" -> "jsplumb-node-5" -> "jsplumb-node-6" -> "jsplumb-node-7" -> "jsplumb-node-8";
+        }
 
         }
     </textarea>
 
+
+    <!--digraph chargraph {-->
+    <!--node[shape=box, margin=0, width=1, height=1, style=filled];-->
+    <!--subgraph cluster_0 {-->
+    <!--"jsplumb-node-1" -> "jsplumb-node-" ;-->
+    <!--"jsplumb-node-1" -> "jsplumb-node-2" [dir="both"];-->
+    <!--"jsplumb-node-2" -> "jsplumb-node-4" ;-->
+
+    <!--"jsplumb-node-2" -> "jsplumb-node-5" [dir="both"];-->
+    <!--}-->
+    <!--"jsplumb-node-3" -> "jsplumb-node-2" ;-->
+    <!--"jsplumb-node-3" -> "jsplumb-node-6" ;-->
+    <!--"jsplumb-node-6" -> "jsplumb-node-7" ;-->
+    <!--"jsplumb-node-6" -> "jsplumb-node-8" ;-->
+    <!--"jsplumb-node-6" -> "jsplumb-node-9" ;-->
+    <!--"jsplumb-node-9" -> "jsplumb-node-8" ;-->
+
+    <!--}-->
     <!--window32 -> window29;-->
     <!--window32 -> window30;-->
     <!--window32 -> window31 [dir="both"];-->
@@ -92,17 +112,17 @@
     <!--{rank=same; window30; window28}-->
     <!--{rank=same; window29;}-->
     <!--<div id="jsPlumb-content" style="width: 900px; height: 900px">-->
-        <!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
-        <!--<div id="node0" class="jsplumb-node" style="background: red;">0</div>-->
-        <!--<div id="node1" class="jsplumb-node" style="background: green;">1</div>-->
-        <!--<div id="node2" class="jsplumb-node" style="background: yellow;">2</div>-->
-        <!--<div id="node3" class="jsplumb-node" style="background: black;">3</div>-->
+    <!--<div id="jsPlumb-container" style="width: 100%; height: 700px">-->
+    <!--<div id="node0" class="jsplumb-node" style="background: red;">0</div>-->
+    <!--<div id="node1" class="jsplumb-node" style="background: green;">1</div>-->
+    <!--<div id="node2" class="jsplumb-node" style="background: yellow;">2</div>-->
+    <!--<div id="node3" class="jsplumb-node" style="background: black;">3</div>-->
 
-        <!--<div id="nested-nodes" class="nested">-->
-        <!--<div class="header" style="height:20px;background-color:blue;">header</div>-->
-        <!--<div id="node4" class="jsplumb-node" style="background: black;">4</div>-->
-        <!--<div id="node5" class="jsplumb-node" style="background: black;">5</div>-->
-        <!--</div>-->
+    <!--<div id="nested-nodes" class="nested">-->
+    <!--<div class="header" style="height:20px;background-color:blue;">header</div>-->
+    <!--<div id="node4" class="jsplumb-node" style="background: black;">4</div>-->
+    <!--<div id="node5" class="jsplumb-node" style="background: black;">5</div>-->
+    <!--</div>-->
     <!--</div>-->
 </div>
 

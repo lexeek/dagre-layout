@@ -86,11 +86,13 @@ DEALINGS IN THE SOFTWARE.
 		//	nextReady();
 		//}
 	}
-	
+
+	//
 	function afterRunDotLayout(param) {
 		
 		for(var i = 0; i < nodePosition.length; i++)
 		{
+
 			$('#' + nodePosition[i].name).css({'left' : (nodePosition[i].x - minPosition) * 80, 'top' : (nodePosition[i].y - minPosition) * 80});
 		}
 		
@@ -131,7 +133,7 @@ DEALINGS IN THE SOFTWARE.
 		
 		nodePosition.push(obj);
 		
-		//jsPlumb.repaint(param.name);
+//		jsPlumb.repaint( param.name);
 	}
 	
 	function setupMessageHandler(wk) {

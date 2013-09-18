@@ -376,12 +376,14 @@ function doLayout(jspInstance, config) {
 
         case "liviz" :
 
-            $.each($(".node"), function (name, obj) {
-                jspInstance.select().each(function (connection) {
-                    console.log("connection: ", connection.sourceId);
-                })
-            })
-
+//            $.each(
+//                $(".node"), function (name, obj) {
+//                jspInstance.select().each(function (connection) {
+//                    console.log("connection: ", connection.sourceId);
+//                })
+//            })
+            var digraph = new Digraph();
+            digraph.setConnections(jspInstance);
             w_launch();
 
 

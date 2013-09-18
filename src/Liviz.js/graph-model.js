@@ -264,7 +264,7 @@ if (!window['JSViz']) { window.JSViz = {}; }
 		},
 
 		addEdge: function(shouldSaveRawArray, esModule, pEdge, edgeCoordsArray, pN1, pN2, edgeDataLength, arrX, arrY) {
-//			console.log(pN1 +' -> '+ pN2);
+			console.log(pN1 +' -> '+ pN2);
 			if (edgeDataLength >= 0 || !esModule) {
 				var coords;
 				if (esModule) {

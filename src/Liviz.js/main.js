@@ -151,15 +151,28 @@ function runDotLayout() {
 	
 	emModule._runDotLayout(GV.pGraph, GV.gvc, STOP_FUNC_LABEL);
 	var extractor = new window.JSViz.GraphExtractor();
+    console.log("GV.pGraph ");
+    console.log(GV.pGraph);
+    console.log("emModule");
+//    console.log(emModule);
+
 	extractor.extract(emModule, GV.pGraph, true);
-	
+
+    console.log("extractor.g nm ", extractor.g.nodeMap);
+    console.log(extractor.g);
 	var node;
 	for (var i in extractor.g.nodeMap)
 	{
 		node = extractor.g.nodeMap[i];
 		
-        console.log("node ");
+        console.log("extracted Node");
         console.log(node);
+        console.log("initializeNodePosition :");
+        console.log(JSON.stringify({"name": node.name, "x": node.sx, "y": node.sy}));
+        
+        console.log("!!node ");
+        console.log(!!node);
+        console.log(!node);
 		if(!!node)
 		{
 			nodeNameMap[node.name] = node;
@@ -167,7 +180,7 @@ function runDotLayout() {
 			initializeNodePosition(JSON.stringify({"name": node.name, "x": node.sx, "y": node.sy}));
 		}
 	}
-	
+	//GRAPH WIDTH
 	var ginfo = {
 		type: "G",
 		displayWidth:  emModule._getGraphWidth(GV.gvc),
