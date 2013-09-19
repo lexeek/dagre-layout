@@ -88,15 +88,25 @@ DEALINGS IN THE SOFTWARE.
 	}
 
 	//
-	function afterRunDotLayout(param) {
+
+    function repaintJSplumb(instance){
+        console.log("jspInstance repaint");
+//        console.log(jspInstance);
+        jspInstance.repaintEverything();
+    }
+
+
+
+	function afterRunDotLayout(param,  call) {
 		
 		for(var i = 0; i < nodePosition.length; i++)
 		{
 
 			$('#' + nodePosition[i].name).css({'left' : (nodePosition[i].x - minPosition) * 80, 'top' : (nodePosition[i].y - minPosition) * 80});
+
 		}
-		
-		jsPlumb.repaintEverything();
+
+
 		
         // Use this only when using fdp/sfdp/neato/twopi/circo layout engines/algorithms.
         // Hides progress canvas after initialization is over.
@@ -108,6 +118,7 @@ DEALINGS IN THE SOFTWARE.
         {
 //			progressView.hideWithAnimation();
         }
+        return call();
 	}
 
 	function recvProgress(j) {
@@ -152,7 +163,7 @@ DEALINGS IN THE SOFTWARE.
 				afterSetupGVContext(JSON.parse(arg0)); break;
 //				afterSetupGVContext(); break;
 			case "afterRunDotLayout":
-				afterRunDotLayout(JSON.parse(arg0)); break;
+				afterRunDotLayout(JSON.parse(arg0), repaintJSplumb); break;
 			case "afterErrorCheck":
 				afterErrorCheck(JSON.parse(arg0)); break;
 			case "sendProgress":

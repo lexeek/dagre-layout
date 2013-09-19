@@ -375,23 +375,19 @@ function doLayout(jspInstance, config) {
             break;
 
         case "liviz" :
-
-//            $.each(
-//                $(".node"), function (name, obj) {
-//                jspInstance.select().each(function (connection) {
-//                    console.log("connection: ", connection.sourceId);
-//                })
-//            })
             var digraph = new Digraph();
             digraph.setConnections(jspInstance);
             w_launch();
 
+            var config = {};
 
+            config.name = "testLayout";
+            config.node = "node[shape=box, margin=0.5, width=1, height=1, style=filled];";
 
+            digraph.makeDigraph(config);
             break;
-
-
     }
 
     jspInstance.repaintEverything();
+    console.log("END");
 }
