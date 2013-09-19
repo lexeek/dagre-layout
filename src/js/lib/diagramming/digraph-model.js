@@ -34,8 +34,8 @@ Digraph.prototype = {
     },
     makeDigraph: function (config) {
 
-        console.log("this._edges");
-        console.log(this._edges);
+//        console.log("this._edges");
+//        console.log(this._edges);
         var strEdges = "";
 
         for (var i = 0; i < this._edges.length; i++) {
@@ -43,9 +43,8 @@ Digraph.prototype = {
             tmp += this._edges[i].join("->");
             strEdges += tmp + ";" +'\n';
         }
-        console.log("strEdges");
-        console.log(strEdges);
-
+//        console.log("strEdges");
+//        console.log(strEdges);
 
         this._digraph +=  + config.name + "{" + config.node + '\n' + strEdges + "}";
 

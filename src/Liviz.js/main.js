@@ -170,9 +170,6 @@ function runDotLayout() {
         console.log("initializeNodePosition :");
         console.log(JSON.stringify({"name": node.name, "x": node.sx, "y": node.sy}));
         
-        console.log("!!node ");
-        console.log(!!node);
-        console.log(!node);
 		if(!!node)
 		{
 			nodeNameMap[node.name] = node;
